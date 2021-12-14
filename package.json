@@ -1,9 +1,12 @@
 {
-    "name": "leetcode-api",
+    "name": "leetcode-query",
     "version": "0.0.1",
     "description": "LeetCode API",
     "main": "lib/index.js",
     "types": "lib/index.d.ts",
+    "files": [
+        "lib"
+    ],
     "scripts": {
         "prepare": "npm run build && npm run docs",
         "dev": "tsup --watch",
@@ -27,5 +30,13 @@
     },
     "dependencies": {
         "node-fetch": "2"
+    },
+    "bugs": {
+        "url": "https://github.com/JacobLinCool/LeetCode-Query/issues"
+    },
+    "homepage": "https://jacoblincool.github.io/LeetCode-Query/",
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/JacobLinCool/LeetCode-Query.git"
     }
 }
