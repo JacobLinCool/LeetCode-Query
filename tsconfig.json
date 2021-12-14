@@ -1,0 +1,28 @@
+{
+    "ts-node": {
+        // skip typechecking
+        "transpileOnly": true,
+        "files": true,
+    },
+    "exclude": ["lib", "tests", "tsup.config.ts"],
+    "compilerOptions": {
+        "target": "es2020", /* Node 14+ */
+        "lib": ["es2020"],
+        "module": "commonjs",
+        "moduleResolution": "node",
+        // "types": [],
+
+        "rootDir": "./src",
+        "outDir": "./lib",
+        "declaration": true,
+        // "declarationDir": "./",
+        
+        "resolveJsonModule": true,
+        "removeComments": true,
+        "noEmitOnError": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "skipLibCheck": true
+    }
+}
