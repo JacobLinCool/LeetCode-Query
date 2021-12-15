@@ -2,14 +2,16 @@
 <a href="#leetcode-query" id="leetcode-query" style="color: inherit; text-decoration: none;">
   <h1>LeetCode Query</h1>
 </a>
+<p>Get user profiles and submissions on LeetCode.</p>
 
 <a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
   <h2>Examples</h2>
 </a>
 
-<a href="#get-a-user39s-public-profile" id="get-a-user39s-public-profile" style="color: inherit; text-decoration: none;">
-  <h3>Get A User&#39;s Public Profile</h3>
+<a href="#get-an-user39s-public-profile" id="get-an-user39s-public-profile" style="color: inherit; text-decoration: none;">
+  <h3>Get An User&#39;s Public Profile</h3>
 </a>
+<p>Includes recent submissions and posts.</p>
 <pre><code class="language-typescript"><span class="hl-0">import</span><span class="hl-1"> { </span><span class="hl-2">LeetCode</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&quot;leetcode-query&quot;</span><span class="hl-1">;</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">leetcode</span><span class="hl-1"> = </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-6">LeetCode</span><span class="hl-1">();</span><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">user</span><span class="hl-1"> = </span><span class="hl-0">await</span><span class="hl-1"> </span><span class="hl-2">leetcode</span><span class="hl-1">.</span><span class="hl-6">get_user</span><span class="hl-1">(</span><span class="hl-3">&quot;username&quot;</span><span class="hl-1">);</span>
 </code></pre>
 
@@ -18,4 +20,17 @@
 </a>
 <pre><code class="language-typescript"><span class="hl-0">import</span><span class="hl-1"> { </span><span class="hl-2">LeetCode</span><span class="hl-1">, </span><span class="hl-2">Credential</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&quot;leetcode-query&quot;</span><span class="hl-1">;</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">credential</span><span class="hl-1"> = </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-6">Credential</span><span class="hl-1">();</span><br/><span class="hl-0">await</span><span class="hl-1"> </span><span class="hl-2">credential</span><span class="hl-1">.</span><span class="hl-6">init</span><span class="hl-1">(</span><span class="hl-3">&quot;YOUR-LEETCODE-SESSION-COOKIE&quot;</span><span class="hl-1">);</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">leetcode</span><span class="hl-1"> = </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-6">LeetCode</span><span class="hl-1">(</span><span class="hl-2">credential</span><span class="hl-1">);</span><br/><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-6">log</span><span class="hl-1">((</span><span class="hl-0">await</span><span class="hl-1"> </span><span class="hl-2">leetcode</span><span class="hl-1">.</span><span class="hl-6">get_submissions</span><span class="hl-1">(</span><span class="hl-7">100</span><span class="hl-1">, </span><span class="hl-7">0</span><span class="hl-1">)));</span>
 </code></pre>
+
+<a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
+  <h2>Documentation</h2>
+</a>
+<p>Documentation for this package is available on <a href="https://jacoblincool.github.io/LeetCode-Query/">https://jacoblincool.github.io/LeetCode-Query/</a>.</p>
+
+<a href="#links" id="links" style="color: inherit; text-decoration: none;">
+  <h2>Links</h2>
+</a>
+<ul>
+<li>NPM Package: <a href="https://www.npmjs.com/package/leetcode-query">https://www.npmjs.com/package/leetcode-query</a></li>
+<li>GitHub Repository: <a href="https://github.com/JacobLinCool/LeetCode-Query/">https://github.com/JacobLinCool/LeetCode-Query/</a></li>
+</ul>
 </div></div><div class="col-4 col-menu menu-sticky-wrap menu-highlight"><nav class="tsd-navigation primary"><ul><li class="current"><a href="modules.html">Exports</a></li></ul></nav><nav class="tsd-navigation secondary menu-sticky"><ul><li class="tsd-kind-reference"><a href="modules.html#default" class="tsd-kind-icon">default</a></li><li class="tsd-kind-class"><a href="classes/Cache.html" class="tsd-kind-icon">Cache</a></li><li class="tsd-kind-class"><a href="classes/Credential.html" class="tsd-kind-icon">Credential</a></li><li class="tsd-kind-class"><a href="classes/LeetCode.html" class="tsd-kind-icon">Leet<wbr/>Code</a></li><li class="tsd-kind-interface"><a href="interfaces/CacheItem.html" class="tsd-kind-icon">Cache<wbr/>Item</a></li><li class="tsd-kind-interface"><a href="interfaces/CacheTable.html" class="tsd-kind-icon">Cache<wbr/>Table</a></li><li class="tsd-kind-interface"><a href="interfaces/ICredential.html" class="tsd-kind-icon">ICredential</a></li><li class="tsd-kind-interface"><a href="interfaces/LeetCodeGraphQLQuery.html" class="tsd-kind-icon">Leet<wbr/>Code<wbr/>GraphQLQuery</a></li><li class="tsd-kind-variable"><a href="modules.html#cache" class="tsd-kind-icon">cache</a></li><li class="tsd-kind-variable"><a href="modules.html#caches" class="tsd-kind-icon">caches</a></li></ul></nav></div></div></div><footer class="with-border-bottom"><div class="container"><h2>Legend</h2><div class="tsd-legend-group"><ul class="tsd-legend"><li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li><li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li><li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li></ul></div><h2>Settings</h2><p>Theme <select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></p></div></footer><div class="container tsd-generator"><p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div><div class="overlay"></div><script src="assets/main.js"></script></body></html>
