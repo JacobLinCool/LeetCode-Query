@@ -28,7 +28,7 @@ class Cache {
      * @param value The value of the item.
      * @param expires The time in milliseconds until the item expires.
      */
-    public set(key: string, value: any, expires: number = 0): void {
+    public set(key: string, value: unknown, expires = 60000): void {
         this._table[key] = {
             key,
             value,
