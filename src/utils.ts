@@ -8,6 +8,6 @@ export function parse_cookie(cookie: string) {
         }, {} as Record<string, string>);
 }
 
-export function sleep(ms: number, val: any = null) {
+export function sleep(ms: number, val: unknown = null) {
     return new Promise((resolve) => setTimeout(() => resolve(val), ms));
 }

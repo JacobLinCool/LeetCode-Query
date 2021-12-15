@@ -11,7 +11,7 @@ class Cache {
      * @param key The key of the item.
      * @returns {any} The item, or null if it doesn't exist.
      */
-    public get(key: string): any {
+    public get(key: string): unknown {
         const item = this._table[key];
         if (item) {
             if (item.expires > Date.now()) {

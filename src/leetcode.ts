@@ -111,7 +111,7 @@ class LeetCode {
      * @param limit
      * @returns
      */
-    public async get_recent_submissions(username: string, limit: number = 20) {
+    public async get_recent_submissions(username: string, limit = 20) {
         const { data } = await this.graphql({
             operationName: "getRecentSubmissionList",
             variables: { username, limit },
@@ -134,8 +134,8 @@ class LeetCode {
      * @param offset
      * @returns
      */
-    public async get_submissions(limit: number = 20, offset: number = 0) {
-        const submissions: any[] = [];
+    public async get_submissions(limit = 20, offset = 0) {
+        const submissions: unknown[] = [];
         let cursor = offset,
             end = offset + limit;
         while (cursor < end) {

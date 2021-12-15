@@ -9,7 +9,7 @@ export interface CacheItem {
     /**
      * The value of the item.
      */
-    value: any;
+    value: unknown;
 
     /**
      * The expiration time of the item in milliseconds since the Unix epoch.
@@ -42,6 +42,6 @@ export interface ICredential {
 // LeetCode GraphQL
 export interface LeetCodeGraphQLQuery {
     operationName: string;
-    variables: { [key: string]: any };
+    variables: { [key: string]: unknown };
     query: string;
 }
