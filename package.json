@@ -12,7 +12,9 @@
         "dev": "tsup --watch",
         "build": "npm run format && tsup",
         "docs": "typedoc ./src/",
-        "format": "prettier --write \"src/**/*.ts\""
+        "format": "prettier --write \"src/**/*.ts\"",
+        "lint": "eslint .",
+        "test": "jest --coverage"
     },
     "keywords": [
         "leetcode",
@@ -21,15 +23,23 @@
     "author": "JacobLinCool <jacoblincool@gmail.com> (https://github.com/JacobLinCool)",
     "license": "MIT",
     "devDependencies": {
+        "@types/jest": "^27.0.3",
         "@types/node": "16.11.12",
         "@types/node-fetch": "2.5.12",
+        "@typescript-eslint/eslint-plugin": "^5.7.0",
+        "@typescript-eslint/parser": "^5.7.0",
+        "dotenv": "^10.0.0",
+        "eslint": "^8.4.1",
+        "eslint-config-prettier": "^8.3.0",
+        "jest": "^27.4.5",
         "prettier": "2.5.1",
+        "ts-jest": "^27.1.1",
         "tsup": "5.11.6",
         "typedoc": "0.22.10",
         "typescript": "4.5.3"
     },
     "dependencies": {
-        "node-fetch": "2"
+        "node-fetch": "2.6.6"
     },
     "bugs": {
         "url": "https://github.com/JacobLinCool/LeetCode-Query/issues"
@@ -37,6 +47,6 @@
     "homepage": "https://jacoblincool.github.io/LeetCode-Query/",
     "repository": {
         "type": "git",
-        "url": "git+ssh://git@github.com/JacobLinCool/LeetCode-Query.git"
+        "url": "git+https://github.com/JacobLinCool/LeetCode-Query.git"
     }
 }

@@ -4,7 +4,7 @@
         "transpileOnly": true,
         "files": true,
     },
-    "exclude": ["lib", "tests", "tsup.config.ts"],
+    "exclude": ["lib", "src/_tests", "tsup.config.ts"],
     "compilerOptions": {
         "target": "es2020", /* Node 14+ */
         "lib": ["es2020"],

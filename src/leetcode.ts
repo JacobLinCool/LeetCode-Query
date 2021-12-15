@@ -125,7 +125,7 @@ class LeetCode {
                 }
             }`,
         });
-        return data;
+        return (data.recentSubmissionList as unknown[]) || [];
     }
 
     /**
