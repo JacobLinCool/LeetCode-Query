@@ -47,9 +47,13 @@ describe("LeetCode", () => {
             lc = new LeetCode(credential);
         });
 
-        it("should be able to get user's submissions", async () => {
+        ifit(!!process.env["TEST_LEETCODE_SESSION"])("should be able to get user's submissions", async () => {
             const submissions = await lc.get_submissions(100, 0);
             expect(submissions.length).toBe(100);
         });
     });
 });
+
+function ifit(condition = true) {
+    return condition ? it : it.skip;
+}
