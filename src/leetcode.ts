@@ -1,30 +1,38 @@
 import fetch from "node-fetch";
-import type { LeetCodeGraphQLQuery } from "./types";
+import type { LeetCodeGraphQLQuery, LeetCodeGraphQLResponse } from "./types";
+import type { UserProfile, RecentSubmission, Submission, Problem } from "./leetcode-types";
 import { BASE_URL, USER_AGENT } from "./constants";
 import { sleep } from "./utils";
 import { Credential } from "./credential";
 import { Cache, cache as default_cache } from "./cache";
 
 class LeetCode {
-    private credential: Credential;
-    private cache: Cache;
+    public credential: Credential;
+    public cache: Cache;
+    private initialized: Promise<boolean>;
 
     /**
      * If a credential is provided, the LeetCode API will be authenticated. Otherwise, it will be anonymous.
      * @param credential
      */
     constructor(credential: Credential | null = null, cache: Cache | null = null) {
-        if (credential) {
-            this.credential = credential;
-        } else {
-            this.credential = new Credential();
-            this.credential.init();
-        }
+        let initialize: CallableFunction;
+        this.initialized = new Promise((resolve) => {
+            initialize = resolve;
+        });
 
         if (cache) {
             this.cache = cache;
         } else {
             this.cache = default_cache;
+        }
+
+        if (credential) {
+            this.credential = credential;
+            setImmediate(() => initialize());
+        } else {
+            this.credential = new Credential();
+            this.credential.init().then(() => initialize());
         }
     }
 
@@ -32,8 +40,14 @@ class LeetCode {
      * Get public profile of a user.
      * @param username
      * @returns
+     *
+     * ```javascript
+     * const leetcode = new LeetCode();
+     * const profile = await leetcode.get_user("jacoblincool");
+     * ```
      */
-    public async get_user(username: string) {
+    public async get_user(username: string): Promise<UserProfile> {
+        await this.initialized;
         const { data } = await this.graphql({
             operationName: "getUserProfile",
             variables: { username },
@@ -102,7 +116,7 @@ class LeetCode {
             }
             `,
         });
-        return data;
+        return data as UserProfile;
     }
 
     /**
@@ -110,8 +124,14 @@ class LeetCode {
      * @param username
      * @param limit
      * @returns
+     *
+     * ```javascript
+     * const leetcode = new LeetCode();
+     * const submissions = await leetcode.get_recent_submissions("jacoblincool");
+     * ```
      */
-    public async get_recent_submissions(username: string, limit = 20) {
+    public async get_recent_submissions(username: string, limit = 20): Promise<RecentSubmission[]> {
+        await this.initialized;
         const { data } = await this.graphql({
             operationName: "getRecentSubmissionList",
             variables: { username, limit },
@@ -125,16 +145,25 @@ class LeetCode {
                 }
             }`,
         });
-        return (data.recentSubmissionList as unknown[]) || [];
+        return (data.recentSubmissionList as RecentSubmission[]) || [];
     }
 
     /**
      * Get submissions of the credential user. Need to be authenticated.
      * @param limit
      * @param offset
+     * @param cooldown (ms)
      * @returns
+     *
+     * ```javascript
+     * const credential = new Credential();
+     * await credential.init("SESSION");
+     * const leetcode = new LeetCode(credential);
+     * const submissions = await leetcode.get_submissions(100, 0);
+     * ```
      */
-    public async get_submissions(limit = 20, offset = 0) {
+    public async get_submissions(limit = 20, offset = 0, cooldown = 500): Promise<Submission[]> {
+        await this.initialized;
         const submissions: unknown[] = [];
         let cursor = offset,
             end = offset + limit;
@@ -148,17 +177,109 @@ class LeetCode {
                     "user-agent": USER_AGENT,
                 },
             }).then((res) => res.json());
+            try {
+                submissions.push(...data.submissions_dump);
 
-            submissions.push(...data.submissions_dump);
-
-            if (data.has_next) {
-                cursor += end - cursor > 20 ? 20 : end - cursor;
-                await sleep(300);
-            } else {
-                end = cursor;
+                if (data.has_next) {
+                    cursor += end - cursor > 20 ? 20 : end - cursor;
+                    await sleep(cooldown);
+                } else {
+                    end = cursor;
+                }
+            } catch (err) {
+                if (data.detail === "Authentication credentials were not provided.") {
+                    throw new Error("No LeetCode Credential Provided.");
+                }
+                if (data.detail) {
+                    throw new Error(data.detail);
+                }
+                throw err;
             }
         }
-        return submissions;
+        return submissions as Submission[];
+    }
+
+    /**
+     * Get information of a problem by its slug.
+     * @param slug Problem slug
+     * @returns
+     *
+     * ```javascript
+     * const leetcode = new LeetCode();
+     * const problem = await leetcode.get_problem("two-sum");
+     * ```
+     */
+    public async get_problem(slug: string): Promise<Problem> {
+        await this.initialized;
+        const { data } = await this.graphql({
+            operationName: "questionData",
+            variables: { titleSlug: slug.toLowerCase().replace(/\s/g, "-") },
+            query: `query questionData($titleSlug: String!) {
+                question(titleSlug: $titleSlug) {
+                  questionId
+                  questionFrontendId
+                  boundTopicId
+                  title
+                  titleSlug
+                  content
+                  translatedTitle
+                  translatedContent
+                  isPaidOnly
+                  difficulty
+                  likes
+                  dislikes
+                  isLiked
+                  similarQuestions
+                  exampleTestcases
+                  contributors {
+                    username
+                    profileUrl
+                    avatarUrl
+                  }
+                  topicTags {
+                    name
+                    slug
+                    translatedName
+                  }
+                  companyTagStats
+                  codeSnippets {
+                    lang
+                    langSlug
+                    code
+                  }
+                  stats
+                  hints
+                  solution {
+                    id
+                    canSeeDetail
+                    paidOnly
+                    hasVideoSolution
+                    paidOnlyVideo
+                  }
+                  status
+                  sampleTestCase
+                  metaData
+                  judgerAvailable
+                  judgeType
+                  mysqlSchemas
+                  enableRunCode
+                  enableTestMode
+                  enableDebugger
+                  envInfo
+                  libraryUrl
+                  adminUrl
+                  challengeQuestion {
+                    id
+                    date
+                    incompleteChallengeCount
+                    streakCount
+                    type
+                  }
+                }
+              }`,
+        });
+
+        return data.question as Problem;
     }
 
     /**
@@ -166,7 +287,8 @@ class LeetCode {
      * @param query
      * @returns
      */
-    public async graphql(query: LeetCodeGraphQLQuery) {
+    public async graphql(query: LeetCodeGraphQLQuery): Promise<LeetCodeGraphQLResponse> {
+        await this.initialized;
         return fetch(`${BASE_URL}/graphql`, {
             method: "POST",
             headers: {

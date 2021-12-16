@@ -1,4 +1,4 @@
-export function parse_cookie(cookie: string) {
+export function parse_cookie(cookie: string): Record<string, string> {
     return cookie
         .split(";")
         .map((x) => x.trim().split("="))
@@ -8,6 +8,6 @@ export function parse_cookie(cookie: string) {
         }, {} as Record<string, string>);
 }
 
-export function sleep(ms: number, val: unknown = null) {
+export function sleep(ms: number, val: unknown = null): Promise<unknown> {
     return new Promise((resolve) => setTimeout(() => resolve(val), ms));
 }

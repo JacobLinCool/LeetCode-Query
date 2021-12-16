@@ -1,3 +1,5 @@
+import type { UserProfile, RecentSubmission } from "./leetcode-types";
+
 ///////////////////////////////////////////////////////////////////////////////
 // Cache
 export interface CacheItem {
@@ -44,4 +46,9 @@ export interface LeetCodeGraphQLQuery {
     operationName: string;
     variables: { [key: string]: unknown };
     query: string;
+}
+
+export interface LeetCodeGraphQLResponse {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    data: UserProfile | RecentSubmission[] | any;
 }

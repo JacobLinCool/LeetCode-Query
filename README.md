@@ -1,6 +1,19 @@
 # LeetCode Query
 
-Get user profiles and submissions on LeetCode.
+Get user profiles, submissions, and problems on LeetCode.
+
+## Features
+
+### Without Authentication
+
+- [x] Get Public User Profile.
+- [x] Get User's Recent Submissions. (Public, Max: 20)
+- [ ] Get All Problem List.
+- [x] Get Problem Detail.
+
+### Authenticated
+
+- [x] Get All Submissions of The Authenticated User.
 
 ## Examples
 

@@ -1,8 +1,9 @@
 {
     "name": "leetcode-query",
-    "version": "0.0.2",
-    "description": "LeetCode API",
+    "version": "0.0.3",
+    "description": "Get user profiles, submissions, and problems on LeetCode.",
     "main": "lib/index.js",
+    "module": "lib/index.mjs",
     "types": "lib/index.d.ts",
     "files": [
         "lib"
@@ -11,7 +12,7 @@
         "prepare": "npm run build && npm run docs",
         "dev": "tsup --watch",
         "build": "npm run format && tsup",
-        "docs": "typedoc ./src/",
+        "docs": "typedoc ./src/ --name \"LeetCode Query\" --customCss \"./docs.css\"",
         "format": "prettier --write \"src/**/*.ts\"",
         "lint": "eslint .",
         "test": "jest --coverage"
