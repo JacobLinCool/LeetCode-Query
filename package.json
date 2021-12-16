@@ -24,7 +24,7 @@
     "author": "JacobLinCool <jacoblincool@gmail.com> (https://github.com/JacobLinCool)",
     "license": "MIT",
     "devDependencies": {
-        "@types/jest": "^27.0.3",
+        "@types/jest": "27.0.3",
         "@types/node": "16.11.12",
         "@types/node-fetch": "2.5.12",
         "@typescript-eslint/eslint-plugin": "5.7.0",
