@@ -9,7 +9,7 @@ Unauthorized:
 - [x] Get User Profile.
 - [x] Get User's Recent Submissions.
 - [ ] Get Problem List.
-- [ ] Get Problem Detail.
+- [x] Get Problem Detail.
 
 Authorized:
 
