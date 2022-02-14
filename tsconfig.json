@@ -18,7 +18,6 @@
         // "declarationDir": "./",
         
         "resolveJsonModule": true,
-        "removeComments": true,
         "noEmitOnError": true,
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
