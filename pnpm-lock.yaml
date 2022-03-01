@@ -10,7 +10,7 @@ specifiers:
   eslint: 8.4.1
   eslint-config-prettier: 8.3.0
   jest: 27.4.5
-  node-fetch: 2.6.6
+  node-fetch: 2.6.7
   prettier: 2.5.1
   ts-jest: 27.1.1
   tsup: 5.11.6
@@ -18,7 +18,7 @@ specifiers:
   typescript: 4.5.3
 
 dependencies:
-  node-fetch: 2.6.6
+  node-fetch: 2.6.7
 
 devDependencies:
   '@types/jest': 27.0.3
@@ -2833,9 +2833,14 @@ packages:
     resolution: {integrity: sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=}
     dev: true
 
-  /node-fetch/2.6.6:
-    resolution: {integrity: sha512-Z8/6vRlTUChSdIgMa51jxQ4lrw/Jy5SOW10ObaA47/RElsAN2c5Pn8bTgFGWn/ibwzXTE8qwr1Yzx28vsecXEA==}
+  /node-fetch/2.6.7:
+    resolution: {integrity: sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ==}
     engines: {node: 4.x || >=6.0.0}
+    peerDependencies:
+      encoding: ^0.1.0
+    peerDependenciesMeta:
+      encoding:
+        optional: true
     dependencies:
       whatwg-url: 5.0.0
     dev: false
