@@ -1,6 +1,8 @@
 import LeetCode from "./leetcode";
+import LeetCodeCN from "./leetcode-cn";
 
 export default LeetCode;
+export { LeetCode, LeetCodeCN };
 export * from "./types";
 export * from "./leetcode-types";
 

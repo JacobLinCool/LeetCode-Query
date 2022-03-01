@@ -7,8 +7,19 @@ import { Credential } from "./credential";
 import { Cache, cache as default_cache } from "./cache";
 
 class LeetCode {
+    /**
+     * The credential this LeetCode instance is using.
+     */
     public credential: Credential;
+
+    /**
+     * The internal cache.
+     */
     public cache: Cache;
+
+    /**
+     * Used to ensure the LeetCode instance is initialized.
+     */
     private initialized: Promise<boolean>;
 
     /**
@@ -289,12 +300,14 @@ class LeetCode {
      */
     public async graphql(query: LeetCodeGraphQLQuery): Promise<LeetCodeGraphQLResponse> {
         await this.initialized;
-        return fetch(`${BASE_URL}/graphql`, {
+
+        const BASE = BASE_URL;
+        return fetch(`${BASE}/graphql`, {
             method: "POST",
             headers: {
                 "content-type": "application/json",
-                origin: BASE_URL,
-                referer: BASE_URL,
+                origin: BASE,
+                referer: BASE,
                 cookie: `csrftoken=${this.credential.csrf || ""}; `,
                 "x-csrftoken": this.credential.csrf || "",
                 "user-agent": USER_AGENT,
