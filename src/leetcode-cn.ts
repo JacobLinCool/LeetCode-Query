@@ -99,7 +99,7 @@ class LeetCodeCN {
                 "content-type": "application/json",
                 origin: BASE,
                 referer: BASE,
-                cookie: `csrftoken=${this.credential.csrf || ""}; `,
+                cookie: `csrftoken=${this.credential.csrf || ""}; LEETCODE_SESSION=${this.credential.session || ""};`,
                 "x-csrftoken": this.credential.csrf || "",
                 "user-agent": USER_AGENT,
             },
