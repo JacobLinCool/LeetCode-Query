@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
 import type { LeetCodeGraphQLQuery, LeetCodeGraphQLResponse } from "./types";
-import type { UserProfile, RecentSubmission, Submission, Problem } from "./leetcode-types";
+import type { UserProfile, RecentSubmission, Submission, Problem, UserContestInfo } from "./leetcode-types";
 import { BASE_URL, USER_AGENT } from "./constants";
 import { sleep } from "./utils";
 import { Credential } from "./credential";
@@ -128,6 +128,52 @@ class LeetCode {
             `,
         });
         return data as UserProfile;
+    }
+    /**
+     * Get public contest info of a user.
+     * @param username
+     * @returns
+     *
+     * ```javascript
+     * const leetcode = new LeetCode();
+     * const profile = await leetcode.get_user_contest_info("jacoblincool");
+     * ```
+     */
+    public async get_user_contest_info(username: string): Promise<UserContestInfo> {
+        await this.initialized;
+        const { data } = await this.graphql({
+            operationName: "userContestRankingInfo",
+            variables: { username },
+            query: `
+            query userContestRankingInfo($username: String!) {
+                userContestRanking(username: $username) {
+                    attendedContestsCount
+                    rating
+                    globalRanking
+                    totalParticipants
+                    topPercentage
+                    badge {
+                        name
+                    }
+                }
+            userContestRankingHistory(username: $username) {
+                    attended
+                    trendDirection
+                    problemsSolved
+                    totalProblems
+                    finishTimeInSeconds
+                    rating
+                    ranking
+                    contest {
+                    title
+                    startTime
+                    }
+                }
+            }
+            `,
+        });
+        data["userContestRankingHistory"] = data["userContestRankingHistory"].splice(-10);
+        return data as UserContestInfo;
     }
 
     /**
