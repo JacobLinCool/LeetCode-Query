@@ -156,7 +156,7 @@ class LeetCode {
                         name
                     }
                 }
-            userContestRankingHistory(username: $username) {
+                userContestRankingHistory(username: $username) {
                     attended
                     trendDirection
                     problemsSolved
@@ -165,8 +165,8 @@ class LeetCode {
                     rating
                     ranking
                     contest {
-                    title
-                    startTime
+                        title
+                        startTime
                     }
                 }
             }
