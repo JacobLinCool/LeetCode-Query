@@ -172,7 +172,6 @@ class LeetCode {
             }
             `,
         });
-        data["userContestRankingHistory"] = data["userContestRankingHistory"].splice(-10);
         return data as UserContestInfo;
     }
 
