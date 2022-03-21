@@ -76,6 +76,35 @@ export interface UserProfile {
     recentSubmissionList: RecentSubmission[] | null;
 }
 
+export interface Contest {
+    title: string;
+    startTime: string;
+}
+
+export interface ContestInfo {
+    attended: boolean;
+    trendDirection: string;
+    problemsSolved: number;
+    totalProblems: number;
+    finishTimeInSeconds: number;
+    rating: number;
+    ranking: number;
+    contest: Contest;
+}
+export interface ContestRanking {
+    attendedContestsCount: number;
+    rating: number;
+    globalRanking: number;
+    totalParticipants: number;
+    topPercentage: number;
+    badge: string[];
+}
+
+export interface UserContestInfo {
+    userContestRanking: ContestRanking;
+    userContestRankingHistory: ContestInfo[];
+}
+
 export interface TopicTag {
     name: string;
     slug: string;
