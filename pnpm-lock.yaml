@@ -7,7 +7,7 @@ specifiers:
   '@types/node-fetch': 2.5.12
   '@typescript-eslint/eslint-plugin': 5.7.0
   '@typescript-eslint/parser': 5.7.0
-  dotenv: 10.0.0
+  dotenv: 16.0.1
   eslint: 8.4.1
   eslint-config-prettier: 8.3.0
   jest: 27.4.5
@@ -28,7 +28,7 @@ devDependencies:
   '@types/node-fetch': 2.5.12
   '@typescript-eslint/eslint-plugin': 5.7.0_nzontimbhqbogcgfx3nuzd3ugm
   '@typescript-eslint/parser': 5.7.0_at3oe4jtobehfex4tgulrxwsci
-  dotenv: 10.0.0
+  dotenv: 16.0.1
   eslint: 8.4.1
   eslint-config-prettier: 8.3.0_eslint@8.4.1
   jest: 27.4.5
@@ -1456,9 +1456,9 @@ packages:
       webidl-conversions: 5.0.0
     dev: true
 
-  /dotenv/10.0.0:
-    resolution: {integrity: sha512-rlBi9d8jpv9Sf1klPjNfFAuWDjKLwTIJJ/VxtoTwIR6hnZxcEOQCZg2oIL3MWBYw5GpUDKOEnND7LXTbIpQ03Q==}
-    engines: {node: '>=10'}
+  /dotenv/16.0.1:
+    resolution: {integrity: sha512-1K6hR6wtk2FviQ4kEiSjFiH5rpzEVi8WW0x96aztHVMhEspNpc4DVOUTEHtEva5VThQ8IaBX1Pe4gSzpVVUsKQ==}
+    engines: {node: '>=12'}
     dev: true
 
   /electron-to-chromium/1.4.137:
