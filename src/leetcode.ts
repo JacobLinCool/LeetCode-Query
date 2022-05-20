@@ -361,18 +361,30 @@ class LeetCode {
         await this.initialized;
 
         const BASE = BASE_URL;
-        return fetch(`${BASE}/graphql`, {
+        const res = await fetch(`${BASE}/graphql`, {
             method: "POST",
             headers: {
                 "content-type": "application/json",
                 origin: BASE,
                 referer: BASE,
-                cookie: `csrftoken=${this.credential.csrf || ""}; LEETCODE_SESSION=${this.credential.session || ""};`,
+                cookie: `csrftoken=${this.credential.csrf || ""}; LEETCODE_SESSION=${
+                    this.credential.session || ""
+                };`,
                 "x-csrftoken": this.credential.csrf || "",
                 "user-agent": USER_AGENT,
             },
             body: JSON.stringify(query),
-        }).then((res) => res.json());
+        });
+
+        if (res.headers.has("set-cookie")) {
+            const cookies = parse_cookie(res.headers.get("set-cookie") as string);
+
+            if (cookies["csrftoken"]) {
+                this.credential.csrf = cookies["csrftoken"];
+            }
+        }
+
+        return res.json();
     }
 }
 
