@@ -1,4 +1,4 @@
-import type { UserProfile, RecentSubmission } from "./leetcode-types";
+import type { RecentSubmission, UserProfile } from "./leetcode-types";
 
 ///////////////////////////////////////////////////////////////////////////////
 // Cache

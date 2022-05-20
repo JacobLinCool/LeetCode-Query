@@ -1,10 +1,16 @@
 import fetch from "node-fetch";
-import type { LeetCodeGraphQLQuery, LeetCodeGraphQLResponse } from "./types";
-import type { UserProfile, RecentSubmission, Submission, Problem, UserContestInfo } from "./leetcode-types";
-import { BASE_URL, USER_AGENT } from "./constants";
-import { sleep } from "./utils";
-import { Credential } from "./credential";
 import { Cache, cache as default_cache } from "./cache";
+import { BASE_URL, USER_AGENT } from "./constants";
+import { Credential } from "./credential";
+import type {
+    Problem,
+    RecentSubmission,
+    Submission,
+    UserContestInfo,
+    UserProfile,
+} from "./leetcode-types";
+import type { LeetCodeGraphQLQuery, LeetCodeGraphQLResponse } from "./types";
+import { parse_cookie, sleep } from "./utils";
 
 class LeetCode {
     /**
@@ -129,6 +135,7 @@ class LeetCode {
         });
         return data as UserProfile;
     }
+
     /**
      * Get public contest info of a user.
      * @param username
@@ -224,15 +231,22 @@ class LeetCode {
         let cursor = offset,
             end = offset + limit;
         while (cursor < end) {
-            const data = await fetch(`${BASE_URL}/api/submissions/?offset=${cursor}&limit=${end - cursor > 20 ? 20 : end - cursor}`, {
-                headers: {
-                    origin: BASE_URL,
-                    referer: BASE_URL,
-                    cookie: `csrftoken=${this.credential.csrf || ""}; LEETCODE_SESSION=${this.credential.session || ""};`,
-                    "x-csrftoken": this.credential.csrf || "",
-                    "user-agent": USER_AGENT,
+            const data = await fetch(
+                `${BASE_URL}/api/submissions/?offset=${cursor}&limit=${
+                    end - cursor > 20 ? 20 : end - cursor
+                }`,
+                {
+                    headers: {
+                        origin: BASE_URL,
+                        referer: BASE_URL,
+                        cookie: `csrftoken=${this.credential.csrf || ""}; LEETCODE_SESSION=${
+                            this.credential.session || ""
+                        };`,
+                        "x-csrftoken": this.credential.csrf || "",
+                        "user-agent": USER_AGENT,
+                    },
                 },
-            }).then((res) => res.json());
+            ).then((res) => res.json());
             try {
                 submissions.push(...data.submissions_dump);
 

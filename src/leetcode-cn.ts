@@ -1,8 +1,8 @@
 import fetch from "node-fetch";
-import type { LeetCodeGraphQLQuery, LeetCodeGraphQLResponse } from "./types";
+import { Cache, cache as default_cache } from "./cache";
 import { BASE_URL_CN, USER_AGENT } from "./constants";
 import { Credential } from "./credential-cn";
-import { Cache, cache as default_cache } from "./cache";
+import type { LeetCodeGraphQLQuery, LeetCodeGraphQLResponse } from "./types";
 
 class LeetCodeCN {
     /**
@@ -99,7 +99,9 @@ class LeetCodeCN {
                 "content-type": "application/json",
                 origin: BASE,
                 referer: BASE,
-                cookie: `csrftoken=${this.credential.csrf || ""}; LEETCODE_SESSION=${this.credential.session || ""};`,
+                cookie: `csrftoken=${this.credential.csrf || ""}; LEETCODE_SESSION=${
+                    this.credential.session || ""
+                };`,
                 "x-csrftoken": this.credential.csrf || "",
                 "user-agent": USER_AGENT,
             },

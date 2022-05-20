@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
-import { Credential } from "../credential";
 import { Cache } from "../cache";
+import { Credential } from "../credential";
 import { LeetCode } from "../leetcode";
 
 describe("LeetCode", () => {
@@ -67,14 +67,20 @@ describe("LeetCode", () => {
             lc = new LeetCode(credential);
         });
 
-        ifit(!!process.env["TEST_LEETCODE_SESSION"])("should be able to get user's submissions", async () => {
-            const submissions = await lc.get_submissions(100, 0);
-            expect(submissions.length).toBe(100);
-        });
+        ifit(!!process.env["TEST_LEETCODE_SESSION"])(
+            "should be able to get user's submissions",
+            async () => {
+                const submissions = await lc.get_submissions(100, 0);
+                expect(submissions.length).toBe(100);
+            },
+        );
 
-        ifit(!!process.env["TEST_LEETCODE_SESSION"])("should be not able to get user's submissions if cooldown is too short", async () => {
-            await expect(lc.get_submissions(100, 0, 100)).rejects.toThrow();
-        });
+        ifit(!!process.env["TEST_LEETCODE_SESSION"])(
+            "should be not able to get user's submissions if cooldown is too short",
+            async () => {
+                await expect(lc.get_submissions(100, 0, 100)).rejects.toThrow();
+            },
+        );
     });
 });
 
