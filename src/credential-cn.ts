@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
-import type { ICredential } from "./types";
 import { BASE_URL_CN, USER_AGENT } from "./constants";
+import type { ICredential } from "./types";
 import { parse_cookie } from "./utils";
 
 async function get_csrf() {
