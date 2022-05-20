@@ -1,4 +1,4 @@
-import EventEmitter from "node:events";
+import EventEmitter from "events";
 import fetch from "node-fetch";
 import { Cache, cache as default_cache } from "./cache";
 import { BASE_URL, USER_AGENT } from "./constants";
