@@ -1,3 +1,4 @@
+import EventEmitter from "node:events";
 import fetch from "node-fetch";
 import { Cache, cache as default_cache } from "./cache";
 import { BASE_URL, USER_AGENT } from "./constants";
@@ -12,7 +13,7 @@ import type {
 import type { LeetCodeGraphQLQuery, LeetCodeGraphQLResponse } from "./types";
 import { parse_cookie, sleep } from "./utils";
 
-class LeetCode {
+class LeetCode extends EventEmitter {
     /**
      * The credential this LeetCode instance is using.
      */
@@ -33,6 +34,7 @@ class LeetCode {
      * @param credential
      */
     constructor(credential: Credential | null = null, cache: Cache | null = null) {
+        super();
         let initialize: CallableFunction;
         this.initialized = new Promise((resolve) => {
             initialize = resolve;
@@ -375,12 +377,14 @@ class LeetCode {
             },
             body: JSON.stringify(query),
         });
+        this.emit("receive-graphql", res.clone());
 
         if (res.headers.has("set-cookie")) {
             const cookies = parse_cookie(res.headers.get("set-cookie") as string);
 
             if (cookies["csrftoken"]) {
                 this.credential.csrf = cookies["csrftoken"];
+                this.emit("update-csrf", this.credential);
             }
         }
 
