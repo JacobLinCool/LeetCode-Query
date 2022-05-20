@@ -2,7 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@trivago/prettier-plugin-sort-imports': 3.2.0
-  '@types/jest': 27.0.3
+  '@types/jest': 27.5.1
   '@types/node': 16.11.12
   '@types/node-fetch': 2.5.12
   '@typescript-eslint/eslint-plugin': 5.7.0
@@ -10,7 +10,7 @@ specifiers:
   dotenv: 10.0.0
   eslint: 8.4.1
   eslint-config-prettier: 8.3.0
-  jest: 27.4.5
+  jest: 27.5.1
   node-fetch: 2.6.7
   prettier: 2.5.1
   ts-jest: 27.1.1
@@ -23,7 +23,7 @@ dependencies:
 
 devDependencies:
   '@trivago/prettier-plugin-sort-imports': 3.2.0_prettier@2.5.1
-  '@types/jest': 27.0.3
+  '@types/jest': 27.5.1
   '@types/node': 16.11.12
   '@types/node-fetch': 2.5.12
   '@typescript-eslint/eslint-plugin': 5.7.0_nzontimbhqbogcgfx3nuzd3ugm
@@ -31,9 +31,9 @@ devDependencies:
   dotenv: 10.0.0
   eslint: 8.4.1
   eslint-config-prettier: 8.3.0_eslint@8.4.1
-  jest: 27.4.5
+  jest: 27.5.1
   prettier: 2.5.1
-  ts-jest: 27.1.1_skgnun463wmacejhzkqhbp5tlm
+  ts-jest: 27.1.1_6r6y6dy56hgji7dagh5wcb6imy
   tsup: 5.11.6_typescript@4.5.3
   typedoc: 0.22.10_typescript@4.5.3
   typescript: 4.5.3
@@ -825,10 +825,10 @@ packages:
       '@types/istanbul-lib-report': 3.0.0
     dev: true
 
-  /@types/jest/27.0.3:
-    resolution: {integrity: sha512-cmmwv9t7gBYt7hNKH5Spu7Kuu/DotGa+Ff+JGRKZ4db5eh8PnKS4LuebJ3YLUoyOyIHraTGyULn23YtEAm0VSg==}
+  /@types/jest/27.5.1:
+    resolution: {integrity: sha512-fUy7YRpT+rHXto1YlL+J9rs0uLGyiqVt3ZOTQR+4ROc47yNl8WLdVLgUloBRhOxP1PZvguHl44T3H0wAWxahYQ==}
     dependencies:
-      jest-diff: 27.5.1
+      jest-matcher-utils: 27.5.1
       pretty-format: 27.5.1
     dev: true
 
@@ -2736,8 +2736,8 @@ packages:
       supports-color: 8.1.1
     dev: true
 
-  /jest/27.4.5:
-    resolution: {integrity: sha512-uT5MiVN3Jppt314kidCk47MYIRilJjA/l2mxwiuzzxGUeJIvA8/pDaJOAX5KWvjAo7SCydcW0/4WEtgbLMiJkg==}
+  /jest/27.5.1:
+    resolution: {integrity: sha512-Yn0mADZB89zTtjkPJEXwrac3LHudkQMR+Paqa8uxJHCBr9agxztUifWCyiYrjhMPBoUVBjyny0I7XH6ozDr7QQ==}
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
     hasBin: true
     peerDependencies:
@@ -3570,7 +3570,7 @@ packages:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
     dev: true
 
-  /ts-jest/27.1.1_skgnun463wmacejhzkqhbp5tlm:
+  /ts-jest/27.1.1_6r6y6dy56hgji7dagh5wcb6imy:
     resolution: {integrity: sha512-Ds0VkB+cB+8g2JUmP/GKWndeZcCKrbe6jzolGrVWdqVUFByY/2KDHqxJ7yBSon7hDB1TA4PXxjfZ+JjzJisvgA==}
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
     hasBin: true
@@ -3591,10 +3591,10 @@ packages:
       esbuild:
         optional: true
     dependencies:
-      '@types/jest': 27.0.3
+      '@types/jest': 27.5.1
       bs-logger: 0.2.6
       fast-json-stable-stringify: 2.1.0
-      jest: 27.4.5
+      jest: 27.5.1
       jest-util: 27.5.1
       json5: 2.2.1
       lodash.memoize: 4.1.2
