@@ -1,6 +1,6 @@
 {
     "name": "leetcode-query",
-    "version": "0.0.8",
+    "version": "0.0.9",
     "description": "Get user profiles, submissions, and problems on LeetCode.",
     "main": "lib/index.js",
     "module": "lib/index.mjs",
