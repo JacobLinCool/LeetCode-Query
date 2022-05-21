@@ -171,6 +171,8 @@ export interface Problem {
     libraryUrl: string | null;
     adminUrl: string | null;
     challengeQuestion: ChallengeQuestion;
+    /** null if not logged in */
+    note: string | null;
 }
 
 //////////////////////////////////////////////////////////////////////////////
