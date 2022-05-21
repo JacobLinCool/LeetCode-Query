@@ -361,6 +361,7 @@ export class LeetCode extends EventEmitter {
                     streakCount
                     type
                   }
+                  note
                 }
               }`,
         });
