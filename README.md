@@ -1,6 +1,6 @@
 # LeetCode Query
 
-Get user profiles, submissions, and problems on LeetCode.
+The API to get user profiles, submissions, and problems on LeetCode, with highly customizable GraphQL API and Rate Limiter.
 
 ## Features
 
@@ -8,12 +8,18 @@ Get user profiles, submissions, and problems on LeetCode.
 
 - [x] Get Public User Profile.
 - [x] Get User's Recent Submissions. (Public, Max: 20)
+- [x] Get User Contest Records. (thanks to [@laporchen](https://github.com/laporchen))
 - [ ] Get All Problem List.
 - [x] Get Problem Detail.
 
 ### Authenticated
 
 - [x] Get All Submissions of The Authenticated User.
+
+### Other
+
+- [x] Customable GraphQL Query API.
+- [x] Customable Rate Limiter. (Default: 20 req / 10 sec)
 
 ## Examples
 
