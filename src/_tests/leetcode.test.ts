@@ -3,6 +3,8 @@ import { Cache } from "../cache";
 import { Credential } from "../credential";
 import { LeetCode } from "../leetcode";
 
+jest.setTimeout(30_000);
+
 describe("LeetCode", () => {
     describe("General", () => {
         it("should be an instance of LeetCode", () => {
@@ -19,6 +21,7 @@ describe("LeetCode", () => {
 
     describe("Unauthenticated", () => {
         const lc = new LeetCode();
+        lc.limiter.limit = 100;
 
         it("should be able to get user profile", async () => {
             const user = await lc.get_user("jacoblincool");
@@ -57,7 +60,6 @@ describe("LeetCode", () => {
     });
 
     describe("Authenticated", () => {
-        jest.setTimeout(10_000);
         dotenv.config();
         const credential = new Credential();
         let lc: LeetCode;
@@ -72,6 +74,16 @@ describe("LeetCode", () => {
             async () => {
                 const submissions = await lc.get_submissions({ limit: 100, offset: 0 });
                 expect(submissions.length).toBe(100);
+            },
+        );
+
+        ifit(!!process.env["TEST_LEETCODE_SESSION"])(
+            "should be able to get user's information",
+            async () => {
+                const user = await lc.whoami();
+                expect(typeof user.userId).toBe("number");
+                expect(user.username.length).toBeGreaterThan(0);
+                expect(user.isSignedIn).toBe(true);
             },
         );
     });
