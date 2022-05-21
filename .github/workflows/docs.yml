@@ -19,7 +19,7 @@ jobs:
           node-version: "16"
       - name: Install PNPM
         run: npm i -g pnpm
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         with:
           path: ~/.pnpm
           key: ${{ runner.os }}-node-${{ hashFiles('**/pnpm-lock.yaml') }}
