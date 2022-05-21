@@ -48,7 +48,7 @@ describe("RateLimiter", () => {
         }
 
         expect(results).toEqual([]);
-        await sleep(1000);
+        await sleep(900);
         expect(results).toEqual([0, 1, 2, 3, 4, 5, 6, 7]);
         await sleep(1000);
         expect(results).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
