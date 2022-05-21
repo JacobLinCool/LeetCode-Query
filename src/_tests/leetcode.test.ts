@@ -47,7 +47,7 @@ describe("LeetCode", () => {
         });
 
         it("should be not able to get user's submissions", async () => {
-            await expect(lc.get_submissions(30, 0)).rejects.toThrow();
+            await expect(lc.get_submissions({ limit: 30, offset: 0 })).rejects.toThrow();
         });
 
         it("should be able to get problem information", async () => {
@@ -70,15 +70,8 @@ describe("LeetCode", () => {
         ifit(!!process.env["TEST_LEETCODE_SESSION"])(
             "should be able to get user's submissions",
             async () => {
-                const submissions = await lc.get_submissions(100, 0);
+                const submissions = await lc.get_submissions({ limit: 100, offset: 0 });
                 expect(submissions.length).toBe(100);
-            },
-        );
-
-        ifit(!!process.env["TEST_LEETCODE_SESSION"])(
-            "should be not able to get user's submissions if cooldown is too short",
-            async () => {
-                await expect(lc.get_submissions(100, 0, 100)).rejects.toThrow();
             },
         );
     });
