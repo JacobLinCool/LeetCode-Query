@@ -224,13 +224,7 @@ export interface Submission {
     memory: string;
 
     /**
-     * Submission Raw Code
+     * Problem Slug
      */
-    code: string;
-
-    /**
-     * Submission Testcase Statuses (1: Accepted, 0: Wrong Answer)
-     */
-    compare_result: string;
     title_slug: string;
 }

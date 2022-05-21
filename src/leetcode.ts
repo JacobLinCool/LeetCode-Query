@@ -10,8 +10,9 @@ import type {
     UserContestInfo,
     UserProfile,
 } from "./leetcode-types";
+import { RateLimiter } from "./mutex";
 import type { LeetCodeGraphQLQuery, LeetCodeGraphQLResponse } from "./types";
-import { parse_cookie, sleep } from "./utils";
+import { parse_cookie } from "./utils";
 
 class LeetCode extends EventEmitter {
     /**
@@ -30,8 +31,14 @@ class LeetCode extends EventEmitter {
     private initialized: Promise<boolean>;
 
     /**
+     * Rate limiter
+     */
+    public limiter = new RateLimiter();
+
+    /**
      * If a credential is provided, the LeetCode API will be authenticated. Otherwise, it will be anonymous.
      * @param credential
+     * @param cache
      */
     constructor(credential: Credential | null = null, cache: Cache | null = null) {
         super();
@@ -215,60 +222,63 @@ class LeetCode extends EventEmitter {
 
     /**
      * Get submissions of the credential user. Need to be authenticated.
-     * @param limit
-     * @param offset
-     * @param cooldown (ms)
+     *
      * @returns
      *
      * ```javascript
      * const credential = new Credential();
      * await credential.init("SESSION");
      * const leetcode = new LeetCode(credential);
-     * const submissions = await leetcode.get_submissions(100, 0);
+     * const submissions = await leetcode.get_submissions({ limit: 100, offset: 0 });
      * ```
      */
-    public async get_submissions(limit = 20, offset = 0, cooldown = 500): Promise<Submission[]> {
+    public async get_submissions({
+        limit = 20,
+        offset = 0,
+        slug,
+    }: { limit?: number; offset?: number; slug?: string } = {}): Promise<Submission[]> {
         await this.initialized;
-        const submissions: unknown[] = [];
-        let cursor = offset,
-            end = offset + limit;
-        while (cursor < end) {
-            const data = await fetch(
-                `${BASE_URL}/api/submissions/?offset=${cursor}&limit=${
-                    end - cursor > 20 ? 20 : end - cursor
-                }`,
-                {
-                    headers: {
-                        origin: BASE_URL,
-                        referer: BASE_URL,
-                        cookie: `csrftoken=${this.credential.csrf || ""}; LEETCODE_SESSION=${
-                            this.credential.session || ""
-                        };`,
-                        "x-csrftoken": this.credential.csrf || "",
-                        "user-agent": USER_AGENT,
-                    },
-                },
-            ).then((res) => res.json());
-            try {
-                submissions.push(...data.submissions_dump);
 
-                if (data.has_next) {
-                    cursor += end - cursor > 20 ? 20 : end - cursor;
-                    await sleep(cooldown);
-                } else {
-                    end = cursor;
+        const submissions: Submission[] = [];
+        const set = new Set<number>();
+
+        let cursor = offset;
+        while (submissions.length < limit) {
+            const { data } = await this.graphql({
+                operationName: "Submissions",
+                variables: {
+                    offset: cursor,
+                    limit: limit - submissions.length > 20 ? 20 : limit - submissions.length,
+                    slug,
+                },
+                query: `query Submissions($offset: Int!, $limit: Int!, $slug: String) {
+                    submissionList(offset: $offset, limit: $limit, questionSlug: $slug) {
+                        hasNext
+                        submissions { id lang time timestamp statusDisplay runtime url isPending title memory titleSlug }
+                    }
+                }`,
+            });
+
+            for (const submission of data.submissionList.submissions) {
+                submission.id = parseInt(submission.id, 10);
+                submission.timestamp = parseInt(submission.timestamp, 10) * 1000;
+
+                if (set.has(submission.id)) {
+                    continue;
                 }
-            } catch (err) {
-                if (data.detail === "Authentication credentials were not provided.") {
-                    throw new Error("No LeetCode Credential Provided.");
-                }
-                if (data.detail) {
-                    throw new Error(data.detail);
-                }
-                throw err;
+
+                set.add(submission.id);
+                submissions.push(submission);
             }
+
+            if (!data.submissionList.hasNext) {
+                break;
+            }
+
+            cursor += 20;
         }
-        return submissions as Submission[];
+
+        return submissions;
     }
 
     /**
@@ -362,33 +372,41 @@ class LeetCode extends EventEmitter {
     public async graphql(query: LeetCodeGraphQLQuery): Promise<LeetCodeGraphQLResponse> {
         await this.initialized;
 
-        const BASE = BASE_URL;
-        const res = await fetch(`${BASE}/graphql`, {
-            method: "POST",
-            headers: {
-                "content-type": "application/json",
-                origin: BASE,
-                referer: BASE,
-                cookie: `csrftoken=${this.credential.csrf || ""}; LEETCODE_SESSION=${
-                    this.credential.session || ""
-                };`,
-                "x-csrftoken": this.credential.csrf || "",
-                "user-agent": USER_AGENT,
-            },
-            body: JSON.stringify(query),
-        });
-        this.emit("receive-graphql", res.clone());
+        try {
+            await this.limiter.lock();
 
-        if (res.headers.has("set-cookie")) {
-            const cookies = parse_cookie(res.headers.get("set-cookie") as string);
+            const BASE = BASE_URL;
+            const res = await fetch(`${BASE}/graphql`, {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                    origin: BASE,
+                    referer: BASE,
+                    cookie: `csrftoken=${this.credential.csrf || ""}; LEETCODE_SESSION=${
+                        this.credential.session || ""
+                    };`,
+                    "x-csrftoken": this.credential.csrf || "",
+                    "user-agent": USER_AGENT,
+                },
+                body: JSON.stringify(query),
+            });
+            this.emit("receive-graphql", res.clone());
 
-            if (cookies["csrftoken"]) {
-                this.credential.csrf = cookies["csrftoken"];
-                this.emit("update-csrf", this.credential);
+            if (res.headers.has("set-cookie")) {
+                const cookies = parse_cookie(res.headers.get("set-cookie") as string);
+
+                if (cookies["csrftoken"]) {
+                    this.credential.csrf = cookies["csrftoken"];
+                    this.emit("update-csrf", this.credential);
+                }
             }
-        }
 
-        return res.json();
+            this.limiter.unlock();
+            return res.json();
+        } catch (err) {
+            this.limiter.unlock();
+            throw err;
+        }
     }
 }
 
