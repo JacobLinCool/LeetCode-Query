@@ -1,5 +1,5 @@
 import EventEmitter from "events";
-import fetch from "node-fetch";
+import fetch, { Response } from "node-fetch";
 import { Cache, cache as default_cache } from "./cache";
 import { BASE_URL, USER_AGENT } from "./constants";
 import { Credential } from "./credential";
@@ -9,12 +9,13 @@ import type {
     Submission,
     UserContestInfo,
     UserProfile,
+    Whoami,
 } from "./leetcode-types";
 import { RateLimiter } from "./mutex";
 import type { LeetCodeGraphQLQuery, LeetCodeGraphQLResponse } from "./types";
 import { parse_cookie } from "./utils";
 
-class LeetCode extends EventEmitter {
+export class LeetCode extends EventEmitter {
     /**
      * The credential this LeetCode instance is using.
      */
@@ -368,6 +369,34 @@ class LeetCode extends EventEmitter {
     }
 
     /**
+     * Check the information of the credential owner.
+     * @returns
+     */
+    public async whoami(): Promise<Whoami> {
+        await this.initialized;
+        const { data } = await this.graphql({
+            operationName: "globalData",
+            variables: {},
+            query: `query globalData {
+                userStatus {
+                  userId
+                  username
+                  avatar
+                  isSignedIn
+                  isMockUser
+                  isPremium
+                  isAdmin
+                  isSuperuser
+                  isTranslator
+                  permissions
+                }
+              }`,
+        });
+
+        return data.userStatus as Whoami;
+    }
+
+    /**
      * Use GraphQL to query LeetCode API.
      * @param query
      * @returns
@@ -413,5 +442,18 @@ class LeetCode extends EventEmitter {
     }
 }
 
+export declare interface LeetCode {
+    emit(event: "receive-graphql", res: Response): boolean;
+    emit(event: "update-csrf", credential: Credential): boolean;
+    emit(event: string, ...args: unknown[]): boolean;
+
+    on(event: "receive-graphql", listener: (res: Response) => void): this;
+    on(event: "update-csrf", listener: (credential: Credential) => void): this;
+    on(event: string, listener: (...args: unknown[]) => void): this;
+
+    once(event: "receive-graphql", listener: (res: Response) => void): this;
+    once(event: "update-csrf", listener: (credential: Credential) => void): this;
+    once(event: string, listener: (...args: unknown[]) => void): this;
+}
+
 export default LeetCode;
-export { LeetCode };
