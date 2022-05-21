@@ -262,6 +262,9 @@ class LeetCode extends EventEmitter {
             for (const submission of data.submissionList.submissions) {
                 submission.id = parseInt(submission.id, 10);
                 submission.timestamp = parseInt(submission.timestamp, 10) * 1000;
+                submission.isPending = submission.isPending !== "Not Pending";
+                submission.runtime = parseInt(submission.runtime, 10) || 0;
+                submission.memory = parseFloat(submission.memory) || 0;
 
                 if (set.has(submission.id)) {
                     continue;

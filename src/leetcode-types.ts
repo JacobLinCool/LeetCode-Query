@@ -208,23 +208,35 @@ export interface Submission {
     /**
      * Submission Status
      */
-    status_display: SubmissionStatus;
+    statusDisplay: SubmissionStatus;
 
     /**
-     * Submission Runtime (Format: XX ms)
+     * Submission Runtime, in milliseconds
      */
-    runtime: string;
+    runtime: number;
+
+    /**
+     * URL path of the submission without domain
+     */
     url: string;
-    is_pending: string;
+
+    /**
+     * true if the submission is still pending
+     */
+    isPending: boolean;
+
+    /**
+     * Title of the problem
+     */
     title: string;
 
     /**
-     * Submission Memory Usage (Format: XX.X MB)
+     * Submission Memory Usage, in MB
      */
-    memory: string;
+    memory: number;
 
     /**
      * Problem Slug
      */
-    title_slug: string;
+    titleSlug: string;
 }
