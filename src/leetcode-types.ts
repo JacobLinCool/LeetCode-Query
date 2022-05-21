@@ -240,3 +240,16 @@ export interface Submission {
      */
     titleSlug: string;
 }
+
+export interface Whoami {
+    userId: number | null;
+    username: string;
+    avatar: string | null;
+    isSignedIn: boolean;
+    isMockUser: boolean;
+    isPremium: boolean | null;
+    isAdmin: boolean;
+    isSuperuser: boolean;
+    isTranslator: boolean;
+    permissions: string[];
+}
