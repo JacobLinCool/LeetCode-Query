@@ -255,3 +255,50 @@ export interface Whoami {
     isTranslator: boolean;
     permissions: string[];
 }
+
+export interface SubmissionDetail {
+    id: number;
+    problem_id: number;
+    runtime: number;
+    runtime_distribution: [number, number][];
+    runtime_percentile: number;
+    memory: number;
+    memory_distribution: [number, number][];
+    memory_percentile: number;
+    code: string;
+    details: {
+        status_code: number;
+        runtime: string;
+        memory: string;
+        total_correct: string;
+        total_testcases: string;
+        compare_result: string;
+        input_formatted: string;
+        input: string;
+        expected_output: string;
+        code_output: string;
+        last_testcase: string;
+    };
+}
+
+export interface ProblemList {
+    total: number;
+    questions: {
+        acRate: number;
+        difficulty: "Easy" | "Medium" | "Hard";
+        freqBar: null;
+        questionFrontendId: string;
+        isFavor: boolean;
+        isPaidOnly: boolean;
+        status: string | null;
+        title: string;
+        titleSlug: string;
+        topicTags: {
+            name: string;
+            id: string;
+            slug: string;
+        }[];
+        hasSolution: boolean;
+        hasVideoSolution: boolean;
+    }[];
+}
