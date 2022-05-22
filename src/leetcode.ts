@@ -306,7 +306,6 @@ export class LeetCode extends EventEmitter {
                 },
             });
             const raw = await res.text();
-            console.log(raw);
             const data = raw.match(/var pageData = ({[^]+?});/)?.[1];
             const json = new Function("return " + data)();
             const result = {
