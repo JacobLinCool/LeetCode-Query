@@ -5,8 +5,10 @@ import { BASE_URL, USER_AGENT } from "./constants";
 import { Credential } from "./credential";
 import type {
     Problem,
+    ProblemList,
     RecentSubmission,
     Submission,
+    SubmissionDetail,
     UserContestInfo,
     UserProfile,
     Whoami,
@@ -283,6 +285,129 @@ export class LeetCode extends EventEmitter {
         }
 
         return submissions;
+    }
+
+    /**
+     * Get detail of a submission, including the code and percentiles.
+     * Need to be authenticated.
+     * @param id Submission ID
+     * @returns
+     */
+    public async submission(id: number): Promise<SubmissionDetail> {
+        await this.initialized;
+
+        try {
+            await this.limiter.lock();
+
+            const res = await fetch(`${BASE_URL}/submissions/detail/${id}/`, {
+                headers: {
+                    origin: BASE_URL,
+                    referer: BASE_URL,
+                    cookie: `csrftoken=${this.credential.csrf || ""}; LEETCODE_SESSION=${
+                        this.credential.session || ""
+                    };`,
+                    "user-agent": USER_AGENT,
+                },
+            });
+            const raw = await res.text();
+            console.log(raw);
+            const data = raw.match(/var pageData = ({[^]+?});/)?.[1];
+            const json = new Function("return " + data)();
+            const result = {
+                id: parseInt(json.submissionId),
+                problem_id: parseInt(json.questionId),
+                runtime: parseInt(json.runtime),
+                runtime_distribution: json.runtimeDistributionFormatted
+                    ? (JSON.parse(json.runtimeDistributionFormatted).distribution.map(
+                          (item: [string, number]) => [+item[0], item[1]],
+                      ) as [number, number][])
+                    : [],
+                runtime_percentile: 0,
+                memory: parseInt(json.memory),
+                memory_distribution: json.memoryDistributionFormatted
+                    ? (JSON.parse(json.memoryDistributionFormatted).distribution.map(
+                          (item: [string, number]) => [+item[0], item[1]],
+                      ) as [number, number][])
+                    : [],
+                memory_percentile: 0,
+                code: json.submissionCode,
+                details: json.submissionData,
+            };
+
+            result.runtime_percentile = result.runtime_distribution.reduce(
+                (acc, [usage, p]) => acc + (usage >= result.runtime ? p : 0),
+                0,
+            );
+            result.memory_percentile = result.memory_distribution.reduce(
+                (acc, [usage, p]) => acc + (usage >= result.memory / 1000 ? p : 0),
+                0,
+            );
+
+            this.limiter.unlock();
+            return result;
+        } catch (err) {
+            this.limiter.unlock();
+            throw err;
+        }
+    }
+
+    /**
+     * Get a list of problems by tags and difficulty.
+     * @param option
+     * @param option.category
+     * @param option.offset
+     * @param option.limit
+     * @param option.filters
+     * @returns
+     */
+    public async problems({
+        category = "",
+        offset = 0,
+        limit = 100,
+        filters = {},
+    }: {
+        category?: string;
+        offset?: number;
+        limit?: number;
+        filters?: {
+            difficulty?: "EASY" | "MEDIUM" | "HARD";
+            tags?: string[];
+        };
+    } = {}): Promise<ProblemList> {
+        await this.initialized;
+
+        const variables = { categorySlug: category, skip: offset, limit, filters };
+
+        const { data } = await this.graphql({
+            operationName: "problemsetQuestionList",
+            variables,
+            query: `query problemsetQuestionList($categorySlug: String, $limit: Int, $skip: Int, $filters: QuestionListFilterInput) {
+                problemsetQuestionList: questionList( 
+                    categorySlug: $categorySlug
+                    limit: $limit
+                    skip: $skip
+                    filters: $filters
+                ) {
+                    total: totalNum
+                    questions: data {
+                        acRate 
+                        difficulty 
+                        freqBar 
+                        questionFrontendId 
+                        isFavor
+                        isPaidOnly 
+                        status 
+                        title 
+                        titleSlug 
+                        topicTags { name id slug } 
+                        hasSolution 
+                        hasVideoSolution
+                    }
+                }
+            }`,
+        });
+
+        return data.problemsetQuestionList as ProblemList;
     }
 
     /**
