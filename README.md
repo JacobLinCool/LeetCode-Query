@@ -9,12 +9,13 @@ The API to get user profiles, submissions, and problems on LeetCode, with highly
 - [x] Get Public User Profile.
 - [x] Get User's Recent Submissions. (Public, Max: 20)
 - [x] Get User Contest Records. (thanks to [@laporchen](https://github.com/laporchen))
-- [ ] Get All Problem List.
+- [x] Get All Problem List, or with filter with difficulty and tags.
 - [x] Get Problem Detail.
 
 ### Authenticated
 
 - [x] Get All Submissions of The Authenticated User.
+- [x] Get Submission Details, including the code and percentiles.
 
 ### Other
 
