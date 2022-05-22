@@ -43,18 +43,14 @@ export class LeetCode extends EventEmitter {
      * @param credential
      * @param cache
      */
-    constructor(credential: Credential | null = null, cache: Cache | null = null) {
+    constructor(credential: Credential | null = null, cache = default_cache) {
         super();
         let initialize: CallableFunction;
         this.initialized = new Promise((resolve) => {
             initialize = resolve;
         });
 
-        if (cache) {
-            this.cache = cache;
-        } else {
-            this.cache = default_cache;
-        }
+        this.cache = cache;
 
         if (credential) {
             this.credential = credential;
@@ -75,7 +71,7 @@ export class LeetCode extends EventEmitter {
      * const profile = await leetcode.get_user("jacoblincool");
      * ```
      */
-    public async get_user(username: string): Promise<UserProfile> {
+    public async user(username: string): Promise<UserProfile> {
         await this.initialized;
         const { data } = await this.graphql({
             operationName: "getUserProfile",
@@ -158,7 +154,7 @@ export class LeetCode extends EventEmitter {
      * const profile = await leetcode.get_user_contest_info("jacoblincool");
      * ```
      */
-    public async get_user_contest_info(username: string): Promise<UserContestInfo> {
+    public async user_contest_info(username: string): Promise<UserContestInfo> {
         await this.initialized;
         const { data } = await this.graphql({
             operationName: "userContestRankingInfo",
@@ -205,7 +201,7 @@ export class LeetCode extends EventEmitter {
      * const submissions = await leetcode.get_recent_submissions("jacoblincool");
      * ```
      */
-    public async get_recent_submissions(username: string, limit = 20): Promise<RecentSubmission[]> {
+    public async recent_submissions(username: string, limit = 20): Promise<RecentSubmission[]> {
         await this.initialized;
         const { data } = await this.graphql({
             operationName: "getRecentSubmissionList",
@@ -235,7 +231,7 @@ export class LeetCode extends EventEmitter {
      * const submissions = await leetcode.get_submissions({ limit: 100, offset: 0 });
      * ```
      */
-    public async get_submissions({
+    public async submissions({
         limit = 20,
         offset = 0,
         slug,
@@ -420,7 +416,7 @@ export class LeetCode extends EventEmitter {
      * const problem = await leetcode.get_problem("two-sum");
      * ```
      */
-    public async get_problem(slug: string): Promise<Problem> {
+    public async problem(slug: string): Promise<Problem> {
         await this.initialized;
         const { data } = await this.graphql({
             operationName: "questionData",
