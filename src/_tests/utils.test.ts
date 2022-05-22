@@ -12,7 +12,7 @@ describe("Utils", () => {
     test("sleep", async () => {
         const start = Date.now();
         const returning = await sleep(300, "I am a string");
-        expect(Date.now() - start).toBeGreaterThanOrEqual(300);
+        expect(Date.now() - start).toBeGreaterThanOrEqual(290);
         expect(returning).toBe("I am a string");
     });
 });
