@@ -12,7 +12,7 @@ specifiers:
   eslint-config-prettier: 8.5.0
   jest: 28.1.0
   node-fetch: 2.6.7
-  prettier: 2.6.2
+  prettier: 2.7.1
   ts-jest: 28.0.2
   tsup: 5.12.8
   typedoc: 0.22.15
@@ -22,7 +22,7 @@ dependencies:
   node-fetch: 2.6.7
 
 devDependencies:
-  '@trivago/prettier-plugin-sort-imports': 3.2.0_prettier@2.6.2
+  '@trivago/prettier-plugin-sort-imports': 3.2.0_prettier@2.7.1
   '@types/jest': 27.5.1
   '@types/node': 17.0.35
   '@types/node-fetch': 2.6.1
@@ -32,7 +32,7 @@ devDependencies:
   eslint: 8.16.0
   eslint-config-prettier: 8.5.0_eslint@8.16.0
   jest: 28.1.0_@types+node@17.0.35
-  prettier: 2.6.2
+  prettier: 2.7.1
   ts-jest: 28.0.2_qy5m32hwmbz5mebulkdtchzcz4
   tsup: 5.12.8_typescript@4.6.4
   typedoc: 0.22.15_typescript@4.6.4
@@ -778,7 +778,7 @@ packages:
       '@sinonjs/commons': 1.8.3
     dev: true
 
-  /@trivago/prettier-plugin-sort-imports/3.2.0_prettier@2.6.2:
+  /@trivago/prettier-plugin-sort-imports/3.2.0_prettier@2.7.1:
     resolution: {integrity: sha512-DnwLe+z8t/dZX5xBbYZV1+C5STkyK/P6SSq3Nk6NXlJZsgvDZX2eN4ND7bMFgGV/NL/YChWzcNf6ziGba1ktQQ==}
     peerDependencies:
       prettier: 2.x
@@ -790,7 +790,7 @@ packages:
       '@babel/types': 7.13.0
       javascript-natural-sort: 0.7.1
       lodash: 4.17.21
-      prettier: 2.6.2
+      prettier: 2.7.1
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -2997,8 +2997,8 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: true
 
-  /prettier/2.6.2:
-    resolution: {integrity: sha512-PkUpF+qoXTqhOeWL9fu7As8LXsIUZ1WYaJiY/a7McAQzxjk82OF0tibkFXVCDImZtWxbvojFjerkiLb0/q8mew==}
+  /prettier/2.7.1:
+    resolution: {integrity: sha512-ujppO+MkdPqoVINuDFDRLClm7D78qbDt0/NR+wp5FqEZOoTNAjPHWj17QRhu7geIHJfcNhRk1XVQmF8Bp3ye+g==}
     engines: {node: '>=10.13.0'}
     hasBin: true
     dev: true
