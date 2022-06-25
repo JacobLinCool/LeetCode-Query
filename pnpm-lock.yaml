@@ -4,7 +4,7 @@ specifiers:
   '@trivago/prettier-plugin-sort-imports': 3.2.0
   '@types/jest': 27.5.1
   '@types/node': 17.0.35
-  '@types/node-fetch': 2.6.1
+  '@types/node-fetch': 2.6.2
   '@typescript-eslint/eslint-plugin': 5.25.0
   '@typescript-eslint/parser': 5.25.0
   dotenv: 16.0.1
@@ -25,7 +25,7 @@ devDependencies:
   '@trivago/prettier-plugin-sort-imports': 3.2.0_prettier@2.7.1
   '@types/jest': 27.5.1
   '@types/node': 17.0.35
-  '@types/node-fetch': 2.6.1
+  '@types/node-fetch': 2.6.2
   '@typescript-eslint/eslint-plugin': 5.25.0_i56rx25yuujflytvsnzek5lbua
   '@typescript-eslint/parser': 5.25.0_yrtj344k46h67sdw7qqyyz3die
   dotenv: 16.0.1
@@ -857,8 +857,8 @@ packages:
     resolution: {integrity: sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==}
     dev: true
 
-  /@types/node-fetch/2.6.1:
-    resolution: {integrity: sha512-oMqjURCaxoSIsHSr1E47QHzbmzNR5rK8McHuNb11BOM9cHcIK3Avy0s/b2JlXHoQGTYS3NsvWzV1M0iK7l0wbA==}
+  /@types/node-fetch/2.6.2:
+    resolution: {integrity: sha512-DHqhlq5jeESLy19TYhLakJ07kNumXWjcDdxXsLUMJZ6ue8VZJj4kLPQVE/2mdHh3xZziNF1xppu5lwmS53HR+A==}
     dependencies:
       '@types/node': 17.0.35
       form-data: 3.0.1
@@ -1401,7 +1401,7 @@ packages:
     dev: true
 
   /delayed-stream/1.0.0:
-    resolution: {integrity: sha1-3zrhmayt+31ECqrgsp4icrJOxhk=}
+    resolution: {integrity: sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==}
     engines: {node: '>=0.4.0'}
     dev: true
 
