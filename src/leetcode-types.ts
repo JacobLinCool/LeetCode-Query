@@ -78,7 +78,7 @@ export interface UserProfile {
 
 export interface Contest {
     title: string;
-    startTime: string;
+    startTime: number;
 }
 
 export interface ContestInfo {
