@@ -97,7 +97,9 @@ export interface ContestRanking {
     globalRanking: number;
     totalParticipants: number;
     topPercentage: number;
-    badge: string[];
+    badge: null | {
+        name: string;
+    };
 }
 
 export interface UserContestInfo {
