@@ -15,7 +15,7 @@ specifiers:
   prettier: 2.7.1
   ts-jest: 28.0.2
   tsup: 5.12.8
-  typedoc: 0.22.18
+  typedoc: 0.23.10
   typescript: 4.6.4
 
 dependencies:
@@ -35,7 +35,7 @@ devDependencies:
   prettier: 2.7.1
   ts-jest: 28.0.2_qy5m32hwmbz5mebulkdtchzcz4
   tsup: 5.12.8_typescript@4.6.4
-  typedoc: 0.22.18_typescript@4.6.4
+  typedoc: 0.23.10_typescript@4.6.4
   typescript: 4.6.4
 
 packages:
@@ -2002,17 +2002,6 @@ packages:
       path-is-absolute: 1.0.1
     dev: true
 
-  /glob/8.0.3:
-    resolution: {integrity: sha512-ull455NHSHI/Y1FqGaaYFaLGkNMMJbavMrEGFXG/PGrg6y7sutWHUHrz6gy6WEBH6akM1M414dWKCNs+IhKdiQ==}
-    engines: {node: '>=12'}
-    dependencies:
-      fs.realpath: 1.0.0
-      inflight: 1.0.6
-      inherits: 2.0.4
-      minimatch: 5.1.0
-      once: 1.4.0
-    dev: true
-
   /globals/11.12.0:
     resolution: {integrity: sha512-WOBp/EEGUiIsJSp7wcv/y6MO+lV9UoncWqxuFfm8eBwzWNgyfBd6Gz+IeKQ9jCmyhoH99g15M3T+QaVHFjizVA==}
     engines: {node: '>=4'}
@@ -2773,8 +2762,8 @@ packages:
       tmpl: 1.0.5
     dev: true
 
-  /marked/4.0.17:
-    resolution: {integrity: sha512-Wfk0ATOK5iPxM4ptrORkFemqroz0ZDxp5MWfYA7H/F+wO17NRWV5Ypxi6p3g2Xmw2bKeiYOl6oVnLHKxBA0VhA==}
+  /marked/4.0.18:
+    resolution: {integrity: sha512-wbLDJ7Zh0sqA0Vdg6aqlbT+yPxqLblpAZh1mK2+AO2twQkPywvvqQNfEPVwSSRjZ7dZcdeVBIAgiO7MMp3Dszw==}
     engines: {node: '>= 12'}
     hasBin: true
     dev: true
@@ -3474,16 +3463,15 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /typedoc/0.22.18_typescript@4.6.4:
-    resolution: {integrity: sha512-NK9RlLhRUGMvc6Rw5USEYgT4DVAUFk7IF7Q6MYfpJ88KnTZP7EneEa4RcP+tX1auAcz7QT1Iy0bUSZBYYHdoyA==}
-    engines: {node: '>= 12.10.0'}
+  /typedoc/0.23.10_typescript@4.6.4:
+    resolution: {integrity: sha512-03EUiu/ZuScUBMnY6p0lY+HTH8SwhzvRE3gImoemdPDWXPXlks83UGTx++lyquWeB1MTwm9D9Ca8RIjkK3AFfQ==}
+    engines: {node: '>= 14.14'}
     hasBin: true
     peerDependencies:
-      typescript: 4.0.x || 4.1.x || 4.2.x || 4.3.x || 4.4.x || 4.5.x || 4.6.x || 4.7.x
+      typescript: 4.6.x || 4.7.x
     dependencies:
-      glob: 8.0.3
       lunr: 2.3.9
-      marked: 4.0.17
+      marked: 4.0.18
       minimatch: 5.1.0
       shiki: 0.10.1
       typescript: 4.6.4
