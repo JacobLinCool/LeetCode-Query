@@ -67,5 +67,24 @@ describe("LeetCode", () => {
             });
             expect(data.user.username).toBe("LeetCode");
         });
+
+        it("should be able to use graphql noj-go", async () => {
+            const { data } = await lc.graphql(
+                {
+                    operationName: "data",
+                    variables: { username: "LeetCode" },
+                    query: `
+                query data($username: String!, $year: Int) {
+                    calendar: userCalendar(userSlug: $username, year: $year) {
+                      streak
+                      totalActiveDays
+                      submissionCalendar
+                    }
+                  }`,
+                },
+                "/graphql/noj-go/",
+            );
+            expect(typeof data.calendar.streak).toBe("number");
+        });
     });
 });

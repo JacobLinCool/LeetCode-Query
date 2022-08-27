@@ -93,15 +93,19 @@ export class LeetCodeCN extends EventEmitter {
     /**
      * Use GraphQL to query LeetCodeCN API.
      * @param query
+     * @param endpoint Maybe you want to use `/graphql/noj-go/` instead of `/graphql/`.
      * @returns
      */
-    public async graphql(query: LeetCodeGraphQLQuery): Promise<LeetCodeGraphQLResponse> {
+    public async graphql(
+        query: LeetCodeGraphQLQuery,
+        endpoint = "/graphql/",
+    ): Promise<LeetCodeGraphQLResponse> {
         await this.initialized;
 
         try {
             await this.limiter.lock();
             const BASE = BASE_URL_CN;
-            const res = await fetch(`${BASE}/graphql`, {
+            const res = await fetch(`${BASE}${endpoint}`, {
                 method: "POST",
                 headers: {
                     "content-type": "application/json",

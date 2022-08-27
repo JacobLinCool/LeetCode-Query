@@ -44,7 +44,7 @@ export interface ICredential {
 // LeetCode GraphQL
 export interface LeetCodeGraphQLQuery {
     operationName: string;
-    variables: { [key: string]: unknown };
+    variables?: { [key: string]: unknown };
     query: string;
 }
 
