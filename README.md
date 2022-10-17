@@ -32,7 +32,7 @@ Includes recent submissions and posts.
 import { LeetCode } from "leetcode-query";
 
 const leetcode = new LeetCode();
-const user = await leetcode.get_user("username");
+const user = await leetcode.user("username");
 ```
 
 ### Get All Of Your Submissions
@@ -44,7 +44,7 @@ const credential = new Credential();
 await credential.init("YOUR-LEETCODE-SESSION-COOKIE");
 
 const leetcode = new LeetCode(credential);
-console.log((await leetcode.get_submissions(100, 0)));
+console.log((await leetcode.submissions(100, 0)));
 ```
 
 ## Documentation

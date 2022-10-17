@@ -58,7 +58,7 @@ export class LeetCodeCN extends EventEmitter {
      *
      * ```javascript
      * const leetcode = new LeetCodeCN();
-     * const profile = await leetcode.get_user("jacoblincool");
+     * const profile = await leetcode.user("jacoblincool");
      * ```
      */
     public async user(username: string): Promise<UserResult> {

@@ -68,7 +68,7 @@ export class LeetCode extends EventEmitter {
      *
      * ```javascript
      * const leetcode = new LeetCode();
-     * const profile = await leetcode.get_user("jacoblincool");
+     * const profile = await leetcode.user("jacoblincool");
      * ```
      */
     public async user(username: string): Promise<UserProfile> {
@@ -151,7 +151,7 @@ export class LeetCode extends EventEmitter {
      *
      * ```javascript
      * const leetcode = new LeetCode();
-     * const profile = await leetcode.get_user_contest_info("jacoblincool");
+     * const profile = await leetcode.user_contest_info("jacoblincool");
      * ```
      */
     public async user_contest_info(username: string): Promise<UserContestInfo> {
@@ -198,7 +198,7 @@ export class LeetCode extends EventEmitter {
      *
      * ```javascript
      * const leetcode = new LeetCode();
-     * const submissions = await leetcode.get_recent_submissions("jacoblincool");
+     * const submissions = await leetcode.recent_submissions("jacoblincool");
      * ```
      */
     public async recent_submissions(username: string, limit = 20): Promise<RecentSubmission[]> {
@@ -228,7 +228,7 @@ export class LeetCode extends EventEmitter {
      * const credential = new Credential();
      * await credential.init("SESSION");
      * const leetcode = new LeetCode(credential);
-     * const submissions = await leetcode.get_submissions({ limit: 100, offset: 0 });
+     * const submissions = await leetcode.submissions({ limit: 100, offset: 0 });
      * ```
      */
     public async submissions({
@@ -412,7 +412,7 @@ export class LeetCode extends EventEmitter {
      *
      * ```javascript
      * const leetcode = new LeetCode();
-     * const problem = await leetcode.get_problem("two-sum");
+     * const problem = await leetcode.problem("two-sum");
      * ```
      */
     public async problem(slug: string): Promise<Problem> {
