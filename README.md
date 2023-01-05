@@ -11,6 +11,7 @@ The API to get user profiles, submissions, and problems on LeetCode, with highly
 - [x] Get User Contest Records. (thanks to [@laporchen](https://github.com/laporchen))
 - [x] Get All Problem List, or with filter of difficulty and tags.
 - [x] Get Problem Detail.
+- [x] Get Daily Challenge.
 
 ### Authenticated
 
