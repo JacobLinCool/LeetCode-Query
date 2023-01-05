@@ -73,6 +73,13 @@ describe("LeetCode", () => {
             expect(problems.total).toBeGreaterThan(500);
             expect(problems.questions.length).toBe(100);
         });
+
+        it("should be able to get daily challenge", async () => {
+            const daily = await lc.daily();
+            expect(Date.now() - new Date(daily.date).getTime()).toBeLessThan(
+                24 * 60 * 60 * 1000 + 1000,
+            );
+        });
     });
 
     describe("Authenticated", () => {
