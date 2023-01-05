@@ -14,7 +14,7 @@ specifiers:
   node-fetch: 2.6.7
   prettier: 2.7.1
   ts-jest: 28.0.2
-  tsup: 5.12.8
+  tsup: 5.12.9
   typedoc: 0.23.23
   typescript: 4.6.4
 
@@ -34,7 +34,7 @@ devDependencies:
   jest: 28.1.0_@types+node@17.0.35
   prettier: 2.7.1
   ts-jest: 28.0.2_qy5m32hwmbz5mebulkdtchzcz4
-  tsup: 5.12.8_typescript@4.6.4
+  tsup: 5.12.9_typescript@4.6.4
   typedoc: 0.23.23_typescript@4.6.4
   typescript: 4.6.4
 
@@ -3401,12 +3401,18 @@ packages:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
     dev: true
 
-  /tsup/5.12.8_typescript@4.6.4:
-    resolution: {integrity: sha512-fSBzUBtrnAQ+XKPfj1KcZ2Pl0EUlKBqpbTmRAs+2mL34fQlowrm6ccQgOYyMe9MMAcejMP6/7Rw3qKjx1lreZA==}
+  /tsup/5.12.9_typescript@4.6.4:
+    resolution: {integrity: sha512-dUpuouWZYe40lLufo64qEhDpIDsWhRbr2expv5dHEMjwqeKJS2aXA/FPqs1dxO4T6mBojo7rvo3jP9NNzaKyDg==}
     hasBin: true
     peerDependencies:
+      '@swc/core': ^1
+      postcss: ^8.4.12
       typescript: ^4.1.0
     peerDependenciesMeta:
+      '@swc/core':
+        optional: true
+      postcss:
+        optional: true
       typescript:
         optional: true
     dependencies:
@@ -3426,7 +3432,6 @@ packages:
       tree-kill: 1.2.2
       typescript: 4.6.4
     transitivePeerDependencies:
-      - postcss
       - supports-color
       - ts-node
     dev: true
