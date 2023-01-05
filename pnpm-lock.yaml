@@ -7,7 +7,7 @@ specifiers:
   '@types/node-fetch': 2.6.2
   '@typescript-eslint/eslint-plugin': 5.25.0
   '@typescript-eslint/parser': 5.25.0
-  dotenv: 16.0.1
+  dotenv: 16.0.3
   eslint: 8.18.0
   eslint-config-prettier: 8.5.0
   jest: 28.1.0
@@ -28,7 +28,7 @@ devDependencies:
   '@types/node-fetch': 2.6.2
   '@typescript-eslint/eslint-plugin': 5.25.0_i56rx25yuujflytvsnzek5lbua
   '@typescript-eslint/parser': 5.25.0_yrtj344k46h67sdw7qqyyz3die
-  dotenv: 16.0.1
+  dotenv: 16.0.3
   eslint: 8.18.0
   eslint-config-prettier: 8.5.0_eslint@8.18.0
   jest: 28.1.0_@types+node@17.0.35
@@ -1432,8 +1432,8 @@ packages:
       esutils: 2.0.3
     dev: true
 
-  /dotenv/16.0.1:
-    resolution: {integrity: sha512-1K6hR6wtk2FviQ4kEiSjFiH5rpzEVi8WW0x96aztHVMhEspNpc4DVOUTEHtEva5VThQ8IaBX1Pe4gSzpVVUsKQ==}
+  /dotenv/16.0.3:
+    resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
     engines: {node: '>=12'}
     dev: true
 
