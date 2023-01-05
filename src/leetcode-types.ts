@@ -304,3 +304,9 @@ export interface ProblemList {
         hasVideoSolution: boolean;
     }[];
 }
+
+export interface DailyChallenge {
+    date: string;
+    link: string;
+    question: Problem;
+}

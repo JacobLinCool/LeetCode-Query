@@ -4,6 +4,7 @@ import { Cache, cache as default_cache } from "./cache";
 import { BASE_URL, USER_AGENT } from "./constants";
 import { Credential } from "./credential";
 import CONTEST from "./graphql/contest";
+import DAILY from "./graphql/daily";
 import PROBLEM from "./graphql/problem";
 import PROBLEMS from "./graphql/problems";
 import PROFILE from "./graphql/profile";
@@ -11,6 +12,7 @@ import RECENT_SUBMISSIONS from "./graphql/recent-submissions";
 import SUBMISSIONS from "./graphql/submissions";
 import WHOAMI from "./graphql/whoami";
 import type {
+    DailyChallenge,
     Problem,
     ProblemList,
     RecentSubmission,
@@ -300,6 +302,25 @@ export class LeetCode extends EventEmitter {
         });
 
         return data.question as Problem;
+    }
+
+    /**
+     * Get daily challenge.
+     * @returns
+     *
+     * @example
+     * ```javascript
+     * const leetcode = new LeetCode();
+     * const daily = await leetcode.daily();
+     * ```
+     */
+    public async daily(): Promise<DailyChallenge> {
+        await this.initialized;
+        const { data } = await this.graphql({
+            query: DAILY,
+        });
+
+        return data.activeDailyCodingChallengeQuestion as DailyChallenge;
     }
 
     /**
