@@ -3,6 +3,13 @@ import fetch, { Response } from "node-fetch";
 import { Cache, cache as default_cache } from "./cache";
 import { BASE_URL, USER_AGENT } from "./constants";
 import { Credential } from "./credential";
+import CONTEST from "./graphql/contest";
+import PROBLEM from "./graphql/problem";
+import PROBLEMS from "./graphql/problems";
+import PROFILE from "./graphql/profile";
+import RECENT_SUBMISSIONS from "./graphql/recent-submissions";
+import SUBMISSIONS from "./graphql/submissions";
+import WHOAMI from "./graphql/whoami";
 import type {
     Problem,
     ProblemList,
@@ -74,72 +81,8 @@ export class LeetCode extends EventEmitter {
     public async user(username: string): Promise<UserProfile> {
         await this.initialized;
         const { data } = await this.graphql({
-            operationName: "getUserProfile",
             variables: { username },
-            query: `
-            query getUserProfile($username: String!) {
-                allQuestionsCount {
-                    difficulty
-                    count
-                }
-                matchedUser(username: $username) {
-                    username
-                    socialAccounts
-                    githubUrl
-                    contributions {
-                        points
-                        questionCount
-                        testcaseCount
-                    }
-                    profile {
-                        realName
-                        websites
-                        countryName
-                        skillTags
-                        company
-                        school
-                        starRating
-                        aboutMe
-                        userAvatar
-                        reputation
-                        ranking
-                    }
-                    submissionCalendar
-                    submitStats {
-                        acSubmissionNum {
-                            difficulty
-                            count
-                            submissions
-                        }
-                        totalSubmissionNum {
-                            difficulty
-                            count
-                            submissions
-                        }
-                    }
-                    badges {
-                        id
-                        displayName
-                        icon
-                        creationDate
-                    }
-                    upcomingBadges {
-                        name
-                        icon
-                    }
-                    activeBadge {
-                        id
-                    }
-                }
-                recentSubmissionList(username: $username, limit: 20) {
-                    title
-                    titleSlug
-                    timestamp
-                    statusDisplay
-                    lang
-                }
-            }
-            `,
+            query: PROFILE,
         });
         return data as UserProfile;
     }
@@ -157,35 +100,8 @@ export class LeetCode extends EventEmitter {
     public async user_contest_info(username: string): Promise<UserContestInfo> {
         await this.initialized;
         const { data } = await this.graphql({
-            operationName: "userContestRankingInfo",
             variables: { username },
-            query: `
-            query userContestRankingInfo($username: String!) {
-                userContestRanking(username: $username) {
-                    attendedContestsCount
-                    rating
-                    globalRanking
-                    totalParticipants
-                    topPercentage
-                    badge {
-                        name
-                    }
-                }
-                userContestRankingHistory(username: $username) {
-                    attended
-                    trendDirection
-                    problemsSolved
-                    totalProblems
-                    finishTimeInSeconds
-                    rating
-                    ranking
-                    contest {
-                        title
-                        startTime
-                    }
-                }
-            }
-            `,
+            query: CONTEST,
         });
         return data as UserContestInfo;
     }
@@ -204,17 +120,8 @@ export class LeetCode extends EventEmitter {
     public async recent_submissions(username: string, limit = 20): Promise<RecentSubmission[]> {
         await this.initialized;
         const { data } = await this.graphql({
-            operationName: "getRecentSubmissionList",
             variables: { username, limit },
-            query: `query getRecentSubmissionList($username: String!, $limit: Int) {
-                recentSubmissionList(username: $username, limit: $limit) {
-                    title
-                    titleSlug
-                    timestamp
-                    statusDisplay
-                    lang
-                }
-            }`,
+            query: RECENT_SUBMISSIONS,
         });
         return (data.recentSubmissionList as RecentSubmission[]) || [];
     }
@@ -244,18 +151,12 @@ export class LeetCode extends EventEmitter {
         let cursor = offset;
         while (submissions.length < limit) {
             const { data } = await this.graphql({
-                operationName: "Submissions",
                 variables: {
                     offset: cursor,
                     limit: limit - submissions.length > 20 ? 20 : limit - submissions.length,
                     slug,
                 },
-                query: `query Submissions($offset: Int!, $limit: Int!, $slug: String) {
-                    submissionList(offset: $offset, limit: $limit, questionSlug: $slug) {
-                        hasNext
-                        submissions { id lang time timestamp statusDisplay runtime url isPending title memory titleSlug }
-                    }
-                }`,
+                query: SUBMISSIONS,
             });
 
             for (const submission of data.submissionList.submissions) {
@@ -374,32 +275,8 @@ export class LeetCode extends EventEmitter {
         const variables = { categorySlug: category, skip: offset, limit, filters };
 
         const { data } = await this.graphql({
-            operationName: "problemsetQuestionList",
             variables,
-            query: `query problemsetQuestionList($categorySlug: String, $limit: Int, $skip: Int, $filters: QuestionListFilterInput) {
-                problemsetQuestionList: questionList( 
-                    categorySlug: $categorySlug
-                    limit: $limit
-                    skip: $skip
-                    filters: $filters
-                ) {
-                    total: totalNum
-                    questions: data {
-                        acRate 
-                        difficulty 
-                        freqBar 
-                        questionFrontendId 
-                        isFavor
-                        isPaidOnly 
-                        status 
-                        title 
-                        titleSlug 
-                        topicTags { name id slug } 
-                        hasSolution 
-                        hasVideoSolution
-                    }
-                }
-            }`,
+            query: PROBLEMS,
         });
 
         return data.problemsetQuestionList as ProblemList;
@@ -418,72 +295,8 @@ export class LeetCode extends EventEmitter {
     public async problem(slug: string): Promise<Problem> {
         await this.initialized;
         const { data } = await this.graphql({
-            operationName: "questionData",
             variables: { titleSlug: slug.toLowerCase().replace(/\s/g, "-") },
-            query: `query questionData($titleSlug: String!) {
-                question(titleSlug: $titleSlug) {
-                  questionId
-                  questionFrontendId
-                  boundTopicId
-                  title
-                  titleSlug
-                  content
-                  translatedTitle
-                  translatedContent
-                  isPaidOnly
-                  difficulty
-                  likes
-                  dislikes
-                  isLiked
-                  similarQuestions
-                  exampleTestcases
-                  contributors {
-                    username
-                    profileUrl
-                    avatarUrl
-                  }
-                  topicTags {
-                    name
-                    slug
-                    translatedName
-                  }
-                  companyTagStats
-                  codeSnippets {
-                    lang
-                    langSlug
-                    code
-                  }
-                  stats
-                  hints
-                  solution {
-                    id
-                    canSeeDetail
-                    paidOnly
-                    hasVideoSolution
-                    paidOnlyVideo
-                  }
-                  status
-                  sampleTestCase
-                  metaData
-                  judgerAvailable
-                  judgeType
-                  mysqlSchemas
-                  enableRunCode
-                  enableTestMode
-                  enableDebugger
-                  envInfo
-                  libraryUrl
-                  adminUrl
-                  challengeQuestion {
-                    id
-                    date
-                    incompleteChallengeCount
-                    streakCount
-                    type
-                  }
-                  note
-                }
-              }`,
+            query: PROBLEM,
         });
 
         return data.question as Problem;
@@ -498,20 +311,7 @@ export class LeetCode extends EventEmitter {
         const { data } = await this.graphql({
             operationName: "globalData",
             variables: {},
-            query: `query globalData {
-                userStatus {
-                  userId
-                  username
-                  avatar
-                  isSignedIn
-                  isMockUser
-                  isPremium
-                  isAdmin
-                  isSuperuser
-                  isTranslator
-                  permissions
-                }
-              }`,
+            query: WHOAMI,
         });
 
         return data.userStatus as Whoami;
