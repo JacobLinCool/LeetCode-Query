@@ -4,11 +4,19 @@ import type { ICredential } from "./types";
 import { parse_cookie } from "./utils";
 
 async function get_csrf() {
-    const cookies_raw = (await fetch(BASE_URL_CN, {
+    const res = await fetch(`${BASE_URL_CN}/graphql/`, {
+        method: "POST",
         headers: {
+            "content-type": "application/json",
             "user-agent": USER_AGENT,
         },
-    }).then((res) => res.headers.get("set-cookie"))) as string;
+        body: JSON.stringify({
+            operationName: "nojGlobalData",
+            variables: {},
+            query: "query nojGlobalData {\n  siteRegion\n  chinaHost\n  websocketUrl\n}\n",
+        }),
+    });
+    const cookies_raw = res.headers.get("set-cookie") as string;
 
     const csrf_token = parse_cookie(cookies_raw).csrftoken;
     return csrf_token;
