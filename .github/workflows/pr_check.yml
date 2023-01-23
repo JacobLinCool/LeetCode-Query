@@ -1,36 +1,31 @@
 name: Pull Request Check
 
 on:
-  pull_request:
-    branches:
-      - main
+    pull_request:
+        branches:
+            - main
 
 jobs:
-  pull_request_check:
-    name: Pull Request Check
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: "16"
-      - name: Install PNPM
-        run: npm i -g pnpm
-      - uses: actions/cache@v3
-        with:
-          path: ~/.pnpm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-      - name: Install Packages
-        run: pnpm i
-      - name: Lint
-        run: pnpm run lint
-      - name: Jest
-        uses: ArtiomTr/jest-coverage-report-action@v2.0-rc.6
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build
-        run: pnpm run build
+    pull_request_check:
+        name: Pull Request Check
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+
+            - name: Setup PNPM
+              uses: pnpm/action-setup@v2.2.4
+              with:
+                  version: latest
+                  run_install: true
+
+            - name: Lint
+              run: pnpm lint
+
+            - name: Jest
+              uses: ArtiomTr/jest-coverage-report-action@v2.0-rc.6
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Build
+              run: pnpm build
