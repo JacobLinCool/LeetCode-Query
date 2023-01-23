@@ -24,7 +24,7 @@
     "author": "JacobLinCool <jacoblincool@gmail.com> (https://github.com/JacobLinCool)",
     "license": "MIT",
     "devDependencies": {
-        "@trivago/prettier-plugin-sort-imports": "3.4.0",
+        "@trivago/prettier-plugin-sort-imports": "4.0.0",
         "@types/jest": "27.5.2",
         "@types/node": "17.0.45",
         "@types/node-fetch": "2.6.2",
