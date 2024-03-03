@@ -20,7 +20,8 @@
         "docs": "typedoc ./src/ --name \"LeetCode Query\" --customCss \"./docs.css\"",
         "format": "prettier --write . --ignore-path .gitignore",
         "lint": "eslint .",
-        "test": "vitest --coverage --coverage.include src"
+        "test": "vitest --coverage --coverage.include src",
+        "changeset": "changeset"
     },
     "keywords": [
         "leetcode",
@@ -33,6 +34,8 @@
         "eventemitter3": "^5.0.1"
     },
     "devDependencies": {
+        "@changesets/changelog-github": "^0.5.0",
+        "@changesets/cli": "^2.27.1",
         "@types/node": "20.11.24",
         "@typescript-eslint/eslint-plugin": "7.1.0",
         "@typescript-eslint/parser": "7.1.0",
@@ -55,5 +58,6 @@
     "repository": {
         "type": "git",
         "url": "git+https://github.com/JacobLinCool/LeetCode-Query.git"
-    }
+    },
+    "packageManager": "pnpm@8.15.4"
 }
