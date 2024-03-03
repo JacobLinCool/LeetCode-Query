@@ -1,7 +1,8 @@
+import { describe, expect, it } from "vitest";
 import { parse_cookie, sleep } from "../utils";
 
 describe("Utils", () => {
-    test("parse_cookie", () => {
+    it("parse_cookie", () => {
         expect(parse_cookie("a=b; c=d; abc-123=456-def")).toEqual({
             a: "b",
             c: "d",
@@ -9,7 +10,7 @@ describe("Utils", () => {
         });
     });
 
-    test("sleep", async () => {
+    it("sleep", async () => {
         const start = Date.now();
         const returning = await sleep(300, "I am a string");
         expect(Date.now() - start).toBeGreaterThanOrEqual(290);

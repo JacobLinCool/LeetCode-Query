@@ -1,9 +1,8 @@
+import { describe, expect, it } from "vitest";
 import { Cache } from "../cache";
 import { LeetCodeCN } from "../leetcode-cn";
 
-jest.setTimeout(15_000);
-
-describe("LeetCode", () => {
+describe("LeetCode", { timeout: 15_000 }, () => {
     describe("General", () => {
         it("should be an instance of LeetCodeCN", () => {
             const lc = new LeetCodeCN();

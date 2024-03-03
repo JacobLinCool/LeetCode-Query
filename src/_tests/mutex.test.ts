@@ -1,3 +1,4 @@
+import { describe, expect, it } from "vitest";
 import { Mutex, RateLimiter } from "../mutex";
 import { sleep } from "../utils";
 

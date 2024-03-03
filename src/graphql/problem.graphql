@@ -1,4 +1,3 @@
-export default `
 query ($titleSlug: String!) {
     question(titleSlug: $titleSlug) {
         questionId
@@ -63,4 +62,3 @@ query ($titleSlug: String!) {
         note
     }
 }
-`;

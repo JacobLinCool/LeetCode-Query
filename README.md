@@ -45,7 +45,7 @@ const credential = new Credential();
 await credential.init("YOUR-LEETCODE-SESSION-COOKIE");
 
 const leetcode = new LeetCode(credential);
-console.log((await leetcode.submissions(100, 0)));
+console.log(await leetcode.submissions(100, 0));
 ```
 
 ## Documentation

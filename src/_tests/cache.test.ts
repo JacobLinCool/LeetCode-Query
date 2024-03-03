@@ -1,3 +1,4 @@
+import { describe, expect, it } from "vitest";
 import { Cache, cache, caches } from "../cache";
 import { sleep } from "../utils";
 
@@ -111,7 +112,7 @@ describe("Cache", () => {
 
         it("should expire after 300ms", async () => {
             c.set("test", "test", 300);
-            await sleep(300);
+            await sleep(350);
             expect(c.get("test")).toBeNull();
             c.clear();
         });

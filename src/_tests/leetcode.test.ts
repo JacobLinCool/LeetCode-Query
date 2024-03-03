@@ -1,11 +1,10 @@
 import dotenv from "dotenv";
+import { beforeAll, describe, expect, it } from "vitest";
 import { Cache } from "../cache";
 import { Credential } from "../credential";
 import { LeetCode } from "../leetcode";
 
-jest.setTimeout(15_000);
-
-describe("LeetCode", () => {
+describe("LeetCode", { timeout: 15_000 }, () => {
     describe("General", () => {
         it("should be an instance of LeetCode", () => {
             const lc = new LeetCode();
@@ -92,7 +91,7 @@ describe("LeetCode", () => {
             lc = new LeetCode(credential);
         });
 
-        ifit(!!process.env["TEST_LEETCODE_SESSION"])(
+        it.skipIf(!process.env["TEST_LEETCODE_SESSION"])(
             "should be able to get user's submissions",
             async () => {
                 const submissions = await lc.submissions({ limit: 100, offset: 0 });
@@ -100,7 +99,7 @@ describe("LeetCode", () => {
             },
         );
 
-        ifit(!!process.env["TEST_LEETCODE_SESSION"])(
+        it.skipIf(!process.env["TEST_LEETCODE_SESSION"])(
             "should be able to get user's information",
             async () => {
                 const user = await lc.whoami();
@@ -110,7 +109,7 @@ describe("LeetCode", () => {
             },
         );
 
-        ifit(!!process.env["TEST_LEETCODE_SESSION"])(
+        it.skipIf(!process.env["TEST_LEETCODE_SESSION"])(
             "should be able to get submission details",
             async () => {
                 const submission = await lc.submission(333333333);
@@ -121,7 +120,3 @@ describe("LeetCode", () => {
         );
     });
 });
-
-function ifit(condition = true) {
-    return condition ? it : it.skip;
-}
