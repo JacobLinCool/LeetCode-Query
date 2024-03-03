@@ -14,7 +14,7 @@
         "lib"
     ],
     "scripts": {
-        "prepare": "npm run build && npm run docs",
+        "prepare": "husky",
         "dev": "tsup --watch",
         "build": "tsup",
         "docs": "typedoc ./src/ --name \"LeetCode Query\" --customCss \"./docs.css\"",
@@ -43,6 +43,8 @@
         "dotenv": "16.4.5",
         "eslint": "8.57.0",
         "eslint-config-prettier": "9.1.0",
+        "husky": "^9.0.11",
+        "lint-staged": "^15.2.2",
         "prettier": "3.2.5",
         "prettier-plugin-organize-imports": "^3.2.4",
         "rollup-plugin-string": "^3.0.0",
@@ -58,6 +60,15 @@
     "repository": {
         "type": "git",
         "url": "git+https://github.com/JacobLinCool/LeetCode-Query.git"
+    },
+    "lint-staged": {
+        "*.ts": [
+            "prettier --write",
+            "eslint --fix"
+        ],
+        "*.graphql": [
+            "prettier --write"
+        ]
     },
     "packageManager": "pnpm@8.15.4"
 }
