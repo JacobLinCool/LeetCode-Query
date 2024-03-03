@@ -1,11 +1,11 @@
 {
     "ts-node": {
         "transpileOnly": true,
-        "files": true,
+        "files": true
     },
     "exclude": ["lib", "src/_tests", "tsup.config.ts"],
     "compilerOptions": {
-        "target": "es2020", /* Node 14+ */
+        "target": "es2020" /* Node 14+ */,
         "lib": ["es2020"],
         "module": "commonjs",
         "moduleResolution": "node",
@@ -17,8 +17,6 @@
         "forceConsistentCasingInFileNames": true,
         "strict": true,
         "skipLibCheck": true,
-        "typeRoots": [
-          "node_modules/@types"
-        ]
+        "typeRoots": ["node_modules/@types"]
     }
 }

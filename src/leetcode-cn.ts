@@ -1,5 +1,5 @@
-import EventEmitter from "events";
-import fetch, { Response } from "node-fetch";
+import fetch from "cross-fetch";
+import EventEmitter from "eventemitter3";
 import { Cache, cache as default_cache } from "./cache";
 import { BASE_URL_CN, USER_AGENT } from "./constants";
 import { Credential } from "./credential-cn";
@@ -137,20 +137,29 @@ export class LeetCodeCN extends EventEmitter {
             throw err;
         }
     }
-}
 
-export declare interface LeetCodeCN {
     emit(event: "receive-graphql", res: Response): boolean;
     emit(event: "update-csrf", credential: Credential): boolean;
     emit(event: string, ...args: unknown[]): boolean;
+    emit(event: string, ...args: unknown[]): boolean {
+        return super.emit(event, ...args);
+    }
 
     on(event: "receive-graphql", listener: (res: Response) => void): this;
     on(event: "update-csrf", listener: (credential: Credential) => void): this;
     on(event: string, listener: (...args: unknown[]) => void): this;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    on(event: string, listener: (...args: any[]) => void): this {
+        return super.on(event, listener);
+    }
 
     once(event: "receive-graphql", listener: (res: Response) => void): this;
     once(event: "update-csrf", listener: (credential: Credential) => void): this;
     once(event: string, listener: (...args: unknown[]) => void): this;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    once(event: string, listener: (...args: any[]) => void): this {
+        return super.once(event, listener);
+    }
 }
 
 export default LeetCodeCN;
@@ -203,7 +212,7 @@ export interface Profile {
     userAvatar: string;
     location: string;
     gender: string;
-    websites: any[];
+    websites: unknown[];
     skillTags: string[];
     contestCount: number;
     asciiCode: string;
@@ -214,7 +223,7 @@ export interface Profile {
 
 export interface UserProfilePublicProfile {
     username: string;
-    haveFollowed?: any;
+    haveFollowed?: unknown;
     siteRanking: number;
     profile: Profile;
 }

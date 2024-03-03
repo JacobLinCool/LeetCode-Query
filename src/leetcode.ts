@@ -1,16 +1,16 @@
-import EventEmitter from "events";
-import fetch, { Response } from "node-fetch";
+import fetch from "cross-fetch";
+import EventEmitter from "eventemitter3";
 import { Cache, cache as default_cache } from "./cache";
 import { BASE_URL, USER_AGENT } from "./constants";
 import { Credential } from "./credential";
-import CONTEST from "./graphql/contest";
-import DAILY from "./graphql/daily";
-import PROBLEM from "./graphql/problem";
-import PROBLEMS from "./graphql/problems";
-import PROFILE from "./graphql/profile";
-import RECENT_SUBMISSIONS from "./graphql/recent-submissions";
-import SUBMISSIONS from "./graphql/submissions";
-import WHOAMI from "./graphql/whoami";
+import CONTEST from "./graphql/contest.graphql?raw";
+import DAILY from "./graphql/daily.graphql?raw";
+import PROBLEM from "./graphql/problem.graphql?raw";
+import PROBLEMS from "./graphql/problems.graphql?raw";
+import PROFILE from "./graphql/profile.graphql?raw";
+import RECENT_SUBMISSIONS from "./graphql/recent-submissions.graphql?raw";
+import SUBMISSIONS from "./graphql/submissions.graphql?raw";
+import WHOAMI from "./graphql/whoami.graphql?raw";
 import type {
     DailyChallenge,
     Problem,
@@ -382,20 +382,29 @@ export class LeetCode extends EventEmitter {
             throw err;
         }
     }
-}
 
-export declare interface LeetCode {
     emit(event: "receive-graphql", res: Response): boolean;
     emit(event: "update-csrf", credential: Credential): boolean;
     emit(event: string, ...args: unknown[]): boolean;
+    emit(event: string, ...args: unknown[]): boolean {
+        return super.emit(event, ...args);
+    }
 
     on(event: "receive-graphql", listener: (res: Response) => void): this;
     on(event: "update-csrf", listener: (credential: Credential) => void): this;
     on(event: string, listener: (...args: unknown[]) => void): this;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    on(event: string, listener: (...args: any[]) => void): this {
+        return super.on(event, listener);
+    }
 
     once(event: "receive-graphql", listener: (res: Response) => void): this;
     once(event: "update-csrf", listener: (credential: Credential) => void): this;
     once(event: string, listener: (...args: unknown[]) => void): this;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    once(event: string, listener: (...args: any[]) => void): this {
+        return super.once(event, listener);
+    }
 }
 
 export default LeetCode;

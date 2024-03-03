@@ -1,4 +1,4 @@
-import EventEmitter from "events";
+import EventEmitter from "eventemitter3";
 
 export type Release = (value: void | PromiseLike<void>) => void;
 
@@ -64,12 +64,13 @@ export class Mutex extends EventEmitter {
     waiting(): number {
         return this.releases.length;
     }
-}
 
-export declare interface Mutex {
     emit(event: "lock" | "unlock" | "all-clear"): boolean;
     emit(event: "wait", { lock, release }: { lock: Promise<void>; release: Release }): boolean;
     emit(event: string): boolean;
+    emit(event: string, ...args: unknown[]): boolean {
+        return super.emit(event, ...args);
+    }
 
     on(event: "lock" | "unlock" | "all-clear", listener: () => void): this;
     on(
@@ -77,6 +78,10 @@ export declare interface Mutex {
         listener: ({ lock, release }: { lock: Promise<void>; release: Release }) => void,
     ): this;
     on(event: string, listener: (...args: unknown[]) => void): this;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    on(event: string, listener: (...args: any[]) => void): this {
+        return super.on(event, listener);
+    }
 
     once(event: "lock" | "unlock" | "all-clear", listener: () => void): this;
     once(
@@ -84,6 +89,10 @@ export declare interface Mutex {
         listener: ({ lock, release }: { lock: Promise<void>; release: Release }) => void,
     ): this;
     once(event: string, listener: (...args: unknown[]) => void): this;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    once(event: string, listener: (...args: any[]) => void): this {
+        return super.once(event, listener);
+    }
 }
 
 export class RateLimiter extends Mutex {
@@ -126,29 +135,34 @@ export class RateLimiter extends Mutex {
     }
 
     cleaner(): void {
-        this.timer = setTimeout(() => {
-            this.reset();
+        this.timer = setTimeout(
+            () => {
+                this.reset();
 
-            setTimeout(() => {
-                if (this.time_mutex.waiting() > 0) {
-                    this.cleaner();
-                } else {
-                    this.timer = undefined;
-                }
-            }, 0);
-        }, this.last + this.interval - Date.now());
+                setTimeout(() => {
+                    if (this.time_mutex.waiting() > 0) {
+                        this.cleaner();
+                    } else {
+                        this.timer = undefined;
+                    }
+                }, 0);
+            },
+            this.last + this.interval - Date.now(),
+        );
     }
 
     set limit(limit: number) {
         this.time_mutex.resize(limit);
     }
-}
 
-export declare interface RateLimiter {
     emit(event: "lock" | "unlock" | "all-clear"): boolean;
     emit(event: "wait", { lock, release }: { lock: Promise<void>; release: Release }): boolean;
     emit(event: "time-lock" | "time-unlock" | "timer-reset"): boolean;
     emit(event: string): boolean;
+    emit(event: string, ...args: unknown[]): boolean {
+        // @ts-expect-error super
+        return super.emit(event, ...args);
+    }
 
     on(event: "lock" | "unlock" | "all-clear", listener: () => void): this;
     on(
@@ -157,6 +171,10 @@ export declare interface RateLimiter {
     ): this;
     on(event: "time-lock" | "time-unlock" | "timer-reset", listener: () => void): this;
     on(event: string, listener: (...args: unknown[]) => void): this;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    on(event: string, listener: (...args: any[]) => void): this {
+        return super.on(event, listener);
+    }
 
     once(event: "lock" | "unlock" | "all-clear", listener: () => void): this;
     once(
@@ -165,4 +183,8 @@ export declare interface RateLimiter {
     ): this;
     once(event: "time-lock" | "time-unlock" | "timer-reset", listener: () => void): this;
     once(event: string, listener: (...args: unknown[]) => void): this;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    once(event: string, listener: (...args: any[]) => void): this {
+        return super.once(event, listener);
+    }
 }

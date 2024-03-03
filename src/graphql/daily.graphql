@@ -1,4 +1,3 @@
-export default `
 query {
     activeDailyCodingChallengeQuestion {
         date
@@ -67,4 +66,3 @@ query {
         }
     }
 }
-`;

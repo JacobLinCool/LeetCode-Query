@@ -2,60 +2,40 @@ name: Release
 
 on:
     push:
-        tags:
-            - "v*"
-    workflow_dispatch:
+        branches:
+            - main
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
-    release-npm:
-        name: Release to NPM (${{ github.ref }})
+    release:
+        name: Release
         runs-on: ubuntu-latest
+        timeout-minutes: 30
+        permissions:
+            contents: write
+            issues: write
+            pull-requests: write
         steps:
-            - name: Checkout Repository
-              uses: actions/checkout@v3
-              with:
-                  fetch-depth: 0
-
-            - name: Check if Tag on Main
-              run: |
-                  git checkout main
-                  branch=$(git branch main --contains ${{ github.ref }})
-                  git checkout ${{ github.ref }}
-                  if [ -z $branch ]; then
-                      echo "Tag ${{ github.ref }} is not contained in the main branch."
-                      exit 1
-                  fi
+            - name: Checkout Repo
+              uses: actions/checkout@v4
 
             - name: Setup PNPM
-              uses: pnpm/action-setup@v2.2.4
+              uses: pnpm/action-setup@v3
               with:
-                  version: latest
                   run_install: true
 
-            - name: Test
-              run: pnpm test
+            - name: Build
+              run: pnpm build
 
-            - name: Publish
-              run: |
-                  pnpm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_TOKEN }}
-                  pnpm publish --verbose --access public --no-git-checks
-
-    release-note:
-        name: Release Note (${{ github.ref }})
-        runs-on: ubuntu-latest
-        needs:
-            - release-npm
-        steps:
-            - name: Checkout Repository
-              uses: actions/checkout@v3
+            - name: Create Release Pull Request or Publish to NPM
+              id: changesets
+              uses: changesets/action@v1
               with:
-                  fetch-depth: 0
-
-            - name: Publish Release
-              uses: "marvinpinto/action-automatic-releases@latest"
-              with:
-                  repo_token: "${{ secrets.GH_TOKEN }}"
-                  prerelease: false
-                  files: |
-                      README.md
-                      LICENSE
+                  publish: pnpm changeset publish
+                  version: pnpm changeset version
+                  title: Release Packages
+                  commit: bump versions
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

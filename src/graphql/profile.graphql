@@ -1,4 +1,3 @@
-export default `
 query ($username: String!) {
     allQuestionsCount {
         difficulty
@@ -61,4 +60,3 @@ query ($username: String!) {
         lang
     }
 }
-`;
