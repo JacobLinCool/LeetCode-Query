@@ -1,5 +1,11 @@
 # leetcode-query
 
+## 1.0.1
+
+### Patch Changes
+
+- [`a474021`](https://github.com/JacobLinCool/LeetCode-Query/commit/a474021dfc74aaf9352b98709d23a6ceb933cd63) Thanks [@JacobLinCool](https://github.com/JacobLinCool)! - Check response status before returning GraphQL data
+
 ## 1.0.0
 
 ### Major Changes
