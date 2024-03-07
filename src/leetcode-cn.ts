@@ -116,6 +116,7 @@ export class LeetCodeCN extends EventEmitter {
                     };`,
                     "x-csrftoken": this.credential.csrf || "",
                     "user-agent": USER_AGENT,
+                    ...query.headers,
                 },
                 body: JSON.stringify(query),
             });
