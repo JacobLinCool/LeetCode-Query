@@ -1,5 +1,11 @@
 # leetcode-query
 
+## 1.1.0
+
+### Minor Changes
+
+- [`c19d509`](https://github.com/JacobLinCool/LeetCode-Query/commit/c19d509bf33be7f26596aae855b9b4998fc2655f) Thanks [@JacobLinCool](https://github.com/JacobLinCool)! - Support custom headers for GraphQL request
+
 ## 1.0.1
 
 ### Patch Changes
