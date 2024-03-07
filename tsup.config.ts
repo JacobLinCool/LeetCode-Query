@@ -7,7 +7,6 @@ export default defineConfig((options) => ({
     format: ["cjs", "esm"],
     clean: true,
     splitting: false,
-    minify: !options.watch,
     dts: options.watch ? false : { resolve: true },
     esbuildOptions(opt) {
         opt.loader = {
