@@ -1,5 +1,11 @@
 # leetcode-query
 
+## 1.2.1
+
+### Patch Changes
+
+- [`47ec5d4`](https://github.com/JacobLinCool/LeetCode-Query/commit/47ec5d425daafa15032ddb12b343dffc89fae0c2) Thanks [@JacobLinCool](https://github.com/JacobLinCool)! - Fix fetcher shortcut
+
 ## 1.2.0
 
 ### Minor Changes
