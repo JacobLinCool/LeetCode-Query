@@ -13,7 +13,8 @@ export class Fetcher extends FetchImpl {
 }
 
 export const fetcher = new Fetcher();
-const _fetch = fetcher.fetch.bind(fetcher);
+const _fetch = (...args: Parameters<typeof fetch>): ReturnType<typeof fetch> =>
+    fetcher.fetch(...args);
 
 export default _fetch;
 export { _fetch as fetch };
