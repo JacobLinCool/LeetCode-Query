@@ -4,11 +4,14 @@ import type { ICredential } from "./types";
 import { parse_cookie } from "./utils";
 
 async function get_csrf() {
-    const cookies_raw = (await fetch(BASE_URL, {
+    const cookies_raw = await fetch(BASE_URL, {
         headers: {
             "user-agent": USER_AGENT,
         },
-    }).then((res) => res.headers.get("set-cookie"))) as string;
+    }).then((res) => res.headers.get("set-cookie"));
+    if (!cookies_raw) {
+        return undefined;
+    }
 
     const csrf_token = parse_cookie(cookies_raw).csrftoken;
     return csrf_token;

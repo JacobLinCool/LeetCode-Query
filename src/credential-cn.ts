@@ -16,7 +16,10 @@ async function get_csrf() {
             query: "query nojGlobalData {\n  siteRegion\n  chinaHost\n  websocketUrl\n}\n",
         }),
     });
-    const cookies_raw = res.headers.get("set-cookie") as string;
+    const cookies_raw = res.headers.get("set-cookie");
+    if (!cookies_raw) {
+        return undefined;
+    }
 
     const csrf_token = parse_cookie(cookies_raw).csrftoken;
     return csrf_token;

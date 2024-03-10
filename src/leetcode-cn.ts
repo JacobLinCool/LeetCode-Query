@@ -127,7 +127,7 @@ export class LeetCodeCN extends EventEmitter {
             this.emit("receive-graphql", res.clone());
 
             if (res.headers.has("set-cookie")) {
-                const cookies = parse_cookie(res.headers.get("set-cookie") as string);
+                const cookies = parse_cookie(res.headers.get("set-cookie") || "");
 
                 if (cookies["csrftoken"]) {
                     this.credential.csrf = cookies["csrftoken"];
