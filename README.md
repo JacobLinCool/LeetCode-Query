@@ -22,6 +22,7 @@ The API to get user profiles, submissions, and problems on LeetCode, with highly
 
 - [x] Customable GraphQL Query API.
 - [x] Customable Rate Limiter. (Default: 20 req / 10 sec)
+- [x] Customable Fetcher.
 
 ## Examples
 
@@ -46,6 +47,48 @@ await credential.init("YOUR-LEETCODE-SESSION-COOKIE");
 
 const leetcode = new LeetCode(credential);
 console.log(await leetcode.submissions(100, 0));
+```
+
+### Use Custom Fetcher
+
+You can use your own fetcher, for example, fetch through a real browser.
+
+```typescript
+import { LeetCode, fetcher } from "leetcode-query";
+import { chromium } from "playwright-extra";
+import stealth from "puppeteer-extra-plugin-stealth";
+
+// setup browser
+const _browser = chromium.use(stealth()).launch();
+const _page = _browser
+    .then((browser) => browser.newPage())
+    .then(async (page) => {
+        await page.goto("https://leetcode.com");
+        return page;
+    });
+
+// use a custom fetcher
+fetcher.set(async (...args) => {
+    const page = await _page;
+
+    const res = await page.evaluate(async (args) => {
+        const res = await fetch(...args);
+        return {
+            body: await res.text(),
+            status: res.status,
+            statusText: res.statusText,
+            headers: Object.fromEntries(res.headers),
+        };
+    }, args);
+
+    return new Response(res.body, res);
+});
+
+// use as normal
+const lc = new LeetCode();
+const daily = await lc.daily();
+console.log(daily);
+await _browser.then((browser) => browser.close());
 ```
 
 ## Documentation
