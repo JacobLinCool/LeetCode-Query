@@ -1,5 +1,11 @@
 # leetcode-query
 
+## 1.2.0
+
+### Minor Changes
+
+- [`9913aaf`](https://github.com/JacobLinCool/LeetCode-Query/commit/9913aafb01d74ce1b75e2406a6293fbb9014f835) Thanks [@JacobLinCool](https://github.com/JacobLinCool)! - Allow library users to use their own fetch implementation
+
 ## 1.1.0
 
 ### Minor Changes
