@@ -1,8 +1,8 @@
-import fetch from "cross-fetch";
 import EventEmitter from "eventemitter3";
 import { Cache, cache as default_cache } from "./cache";
 import { BASE_URL, USER_AGENT } from "./constants";
 import { Credential } from "./credential";
+import fetch from "./fetch";
 import CONTEST from "./graphql/contest.graphql?raw";
 import DAILY from "./graphql/daily.graphql?raw";
 import PROBLEM from "./graphql/problem.graphql?raw";
@@ -381,7 +381,7 @@ export class LeetCode extends EventEmitter {
             }
 
             this.limiter.unlock();
-            return res.json();
+            return res.json() as Promise<LeetCodeGraphQLResponse>;
         } catch (err) {
             this.limiter.unlock();
             throw err;

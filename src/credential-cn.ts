@@ -1,5 +1,5 @@
-import fetch from "cross-fetch";
 import { BASE_URL_CN, USER_AGENT } from "./constants";
+import fetch from "./fetch";
 import type { ICredential } from "./types";
 import { parse_cookie } from "./utils";
 

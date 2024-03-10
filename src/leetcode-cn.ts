@@ -1,8 +1,8 @@
-import fetch from "cross-fetch";
 import EventEmitter from "eventemitter3";
 import { Cache, cache as default_cache } from "./cache";
 import { BASE_URL_CN, USER_AGENT } from "./constants";
 import { Credential } from "./credential-cn";
+import fetch from "./fetch";
 import { RateLimiter } from "./mutex";
 import type { LeetCodeGraphQLQuery, LeetCodeGraphQLResponse } from "./types";
 import { parse_cookie } from "./utils";
@@ -136,7 +136,7 @@ export class LeetCodeCN extends EventEmitter {
             }
 
             this.limiter.unlock();
-            return res.json();
+            return res.json() as Promise<LeetCodeGraphQLResponse>;
         } catch (err) {
             this.limiter.unlock();
             throw err;

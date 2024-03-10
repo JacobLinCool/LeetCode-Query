@@ -9,5 +9,6 @@ export { LeetCode, LeetCodeCN };
 export * from "./cache";
 export * from "./constants";
 export * from "./credential";
+export * from "./fetch";
 export * from "./leetcode";
 export * from "./mutex";
