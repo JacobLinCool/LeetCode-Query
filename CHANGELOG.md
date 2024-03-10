@@ -1,5 +1,11 @@
 # leetcode-query
 
+## 1.2.2
+
+### Patch Changes
+
+- [`bb47140`](https://github.com/JacobLinCool/LeetCode-Query/commit/bb47140ace98ba58da53e853d311fc8ab3f5b42c) Thanks [@JacobLinCool](https://github.com/JacobLinCool)! - Works with no cookie presented in the response
+
 ## 1.2.1
 
 ### Patch Changes
