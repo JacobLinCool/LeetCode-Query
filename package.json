@@ -30,6 +30,8 @@
     "author": "JacobLinCool <jacoblincool@gmail.com> (https://github.com/JacobLinCool)",
     "license": "MIT",
     "dependencies": {
+        "@fetch-impl/cross-fetch": "^1.0.0",
+        "@fetch-impl/fetcher": "^1.0.0",
         "cross-fetch": "^4.0.0",
         "eventemitter3": "^5.0.1"
     },

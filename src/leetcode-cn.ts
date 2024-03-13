@@ -124,7 +124,7 @@ export class LeetCodeCN extends EventEmitter {
                 throw new Error(`HTTP ${res.status} ${res.statusText}: ${await res.text()}`);
             }
 
-            this.emit("receive-graphql", res.clone());
+            this.emit("receive-graphql", res);
 
             if (res.headers.has("set-cookie")) {
                 const cookies = parse_cookie(res.headers.get("set-cookie") || "");

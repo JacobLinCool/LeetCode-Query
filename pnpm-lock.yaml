@@ -5,6 +5,12 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@fetch-impl/cross-fetch':
+    specifier: ^1.0.0
+    version: 1.0.0(@fetch-impl/fetcher@1.0.0)(cross-fetch@4.0.0)
+  '@fetch-impl/fetcher':
+    specifier: ^1.0.0
+    version: 1.0.0
   cross-fetch:
     specifier: ^4.0.0
     version: 4.0.0
@@ -583,6 +589,20 @@ packages:
     resolution: {integrity: sha512-Ys+3g2TaW7gADOJzPt83SJtCDhMjndcDMFVQ/Tj9iA1BfJzFKD9mAUXT3OenpuPHbI6P/myECxRJrofUsDx/5g==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
+
+  /@fetch-impl/cross-fetch@1.0.0(@fetch-impl/fetcher@1.0.0)(cross-fetch@4.0.0):
+    resolution: {integrity: sha512-vNvwtCQ7yruvpYnp1i/4paVi/icrGYx9O4eHNDYorjTAFg78bhitO0l39opJSVfsTKqyWqj3+2+YenoGhZOCJA==}
+    peerDependencies:
+      '@fetch-impl/fetcher': ^1.0.0
+      cross-fetch: '*'
+    dependencies:
+      '@fetch-impl/fetcher': 1.0.0
+      cross-fetch: 4.0.0
+    dev: false
+
+  /@fetch-impl/fetcher@1.0.0:
+    resolution: {integrity: sha512-UPUN9Yfjnk513Vc08iNW8/9L1nSwQMsTx6nOvmjPNfU2Rtbew/2KgAbQDPuoL6PrNgEmEmmyeM29BkcVBpt3gQ==}
+    dev: false
 
   /@humanwhocodes/config-array@0.11.14:
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}

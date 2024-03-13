@@ -23,7 +23,7 @@ describe("LeetCode", { timeout: 15_000 }, () => {
         lc.limiter.limit = 100;
         lc.limiter.interval = 3;
         lc.on("receive-graphql", async (res) => {
-            await res.json();
+            await res.clone().json();
         });
 
         it("should be able to get user profile", async () => {
