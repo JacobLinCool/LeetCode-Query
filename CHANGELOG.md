@@ -1,5 +1,13 @@
 # leetcode-query
 
+## 1.2.3
+
+### Patch Changes
+
+- [`cd8876b`](https://github.com/JacobLinCool/LeetCode-Query/commit/cd8876b0036ce36b7da8cf436b128e016b3ad0b4) Thanks [@JacobLinCool](https://github.com/JacobLinCool)! - Disable response auto clone on receive-graphql hook
+
+- [`cd8876b`](https://github.com/JacobLinCool/LeetCode-Query/commit/cd8876b0036ce36b7da8cf436b128e016b3ad0b4) Thanks [@JacobLinCool](https://github.com/JacobLinCool)! - Allow user to select their own fetch implementation with [@fetch-impl](https://github.com/JacobLinCool/fetch-impl)
+
 ## 1.2.2
 
 ### Patch Changes
