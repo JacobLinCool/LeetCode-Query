@@ -1,5 +1,5 @@
 {
-    "name": "leetcode-query",
+    "name": "leetcode-api",
     "version": "1.2.3",
     "description": "Get user profiles, submissions, and problems on LeetCode.",
     "type": "module",
@@ -21,7 +21,8 @@
         "format": "prettier --write . --ignore-path .gitignore",
         "lint": "eslint .",
         "test": "vitest --coverage --coverage.include src",
-        "changeset": "changeset"
+        "changeset": "changeset",
+        "start": "tsc src/test.ts"
     },
     "keywords": [
         "leetcode",
