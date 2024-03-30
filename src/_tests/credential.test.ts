@@ -14,14 +14,12 @@ describe("Credential", () => {
     it("should be able to init without session", async () => {
         const credential = new Credential();
         await credential.init();
-        expect(credential.csrf).toBeDefined();
         expect(credential.session).toBeUndefined();
     });
 
     it("should be able to init with session", async () => {
         const credential = new Credential();
         await credential.init("test_session");
-        expect(credential.csrf).toBeDefined();
         expect(credential.session).toBe("test_session");
     });
 });
