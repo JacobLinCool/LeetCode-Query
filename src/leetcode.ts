@@ -330,7 +330,6 @@ export class LeetCode extends EventEmitter {
     public async whoami(): Promise<Whoami> {
         await this.initialized;
         const { data } = await this.graphql({
-            operationName: "globalData",
             variables: {},
             query: WHOAMI,
         });
