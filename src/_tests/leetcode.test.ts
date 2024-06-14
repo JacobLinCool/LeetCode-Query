@@ -26,12 +26,12 @@ describe("LeetCode", { timeout: 15_000 }, () => {
             await res.clone().json();
         });
 
-        it("should be able to get user profile", async () => {
+        it("should be able to get a user's profile", async () => {
             const user = await lc.user("jacoblincool");
             expect(user.matchedUser?.username.toLowerCase()).toBe("jacoblincool");
         });
 
-        it("should be able to get user's recent submissions", async () => {
+        it("should be able to get a user's recent submissions", async () => {
             const recent_submissions = await lc.recent_submissions("jacoblincool", 10);
             expect(recent_submissions.length).toBe(10);
         });
@@ -52,11 +52,18 @@ describe("LeetCode", { timeout: 15_000 }, () => {
             expect(data.allQuestionsCount.length).toBe(4);
         });
 
-        it("should be not able to get user's submissions", async () => {
+        it("should be not able to get own submissions", async () => {
             await expect(lc.submissions({ limit: 30, offset: 0 })).rejects.toThrow();
         });
 
-        it("should be able to get user's contest informations", async () => {
+        it("should be able to get own information", async () => {
+            const user = await lc.whoami();
+            expect(user.userId).toBe(null);
+            expect(user.username).toBe("");
+            expect(user.isSignedIn).toBe(false);
+        });
+
+        it("should be able to get a user's contest informations", async () => {
             const contests = await lc.user_contest_info("lapor");
             expect(contests.userContestRanking.rating).toBeGreaterThan(1500);
             expect(contests.userContestRankingHistory.length).toBeGreaterThan(0);
@@ -92,7 +99,7 @@ describe("LeetCode", { timeout: 15_000 }, () => {
         });
 
         it.skipIf(!process.env["TEST_LEETCODE_SESSION"])(
-            "should be able to get user's submissions",
+            "should be able to get own submissions",
             async () => {
                 const submissions = await lc.submissions({ limit: 100, offset: 0 });
                 expect(submissions.length).toBe(100);
@@ -100,7 +107,7 @@ describe("LeetCode", { timeout: 15_000 }, () => {
         );
 
         it.skipIf(!process.env["TEST_LEETCODE_SESSION"])(
-            "should be able to get user's information",
+            "should be able to get own information",
             async () => {
                 const user = await lc.whoami();
                 expect(typeof user.userId).toBe("number");
