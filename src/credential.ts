@@ -4,7 +4,7 @@ import type { ICredential } from "./types";
 import { parse_cookie } from "./utils";
 
 async function get_csrf() {
-    const cookies_raw = await fetch(BASE_URL, {
+    const cookies_raw = await fetch(BASE_URL + "/graphql/", {
         headers: {
             "user-agent": USER_AGENT,
         },
