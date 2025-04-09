@@ -1,0 +1,25 @@
+query userContestRankingInfo($username: String!) {
+    userContestRanking(userSlug: $username) {
+        attendedContestsCount
+        rating
+        globalRanking
+        localRanking
+        globalTotalParticipants
+        localTotalParticipants
+        topPercentage
+    }
+    userContestRankingHistory(userSlug: $username) {
+        attended
+        totalProblems
+        trendingDirection
+        finishTimeInSeconds
+        rating
+        score
+        ranking
+        contest {
+            title
+            titleCn
+            startTime
+        }
+    }
+}

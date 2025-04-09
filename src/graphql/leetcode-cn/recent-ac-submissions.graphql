@@ -1,0 +1,12 @@
+query recentAcSubmissions($username: String!) {
+    recentACSubmissions(userSlug: $username) {
+        submissionId
+        submitTime
+        question {
+            title
+            translatedTitle
+            titleSlug
+            questionFrontendId
+        }
+    }
+}

@@ -1,0 +1,83 @@
+query getUserProfile($username: String!) {
+    userProfileUserQuestionProgress(userSlug: $username) {
+        numAcceptedQuestions {
+            count
+            difficulty
+        }
+        numFailedQuestions {
+            count
+            difficulty
+        }
+        numUntouchedQuestions {
+            count
+            difficulty
+        }
+    }
+    userProfilePublicProfile(userSlug: $username) {
+        haveFollowed
+        siteRanking
+        profile {
+            userSlug
+            realName
+            aboutMe
+            asciiCode
+            userAvatar
+            gender
+            websites
+            skillTags
+            ipRegion
+            birthday
+            location
+            useDefaultAvatar
+            certificationLevel
+            github
+            school: schoolV2 {
+                schoolId
+                logo
+                name
+            }
+            company: companyV2 {
+                id
+                logo
+                name
+            }
+            job
+            globalLocation {
+                country
+                province
+                city
+                overseasCity
+            }
+            socialAccounts {
+                provider
+                profileUrl
+            }
+            skillSet {
+                langLevels {
+                    langName
+                    langVerboseName
+                    level
+                }
+                topics {
+                    slug
+                    name
+                    translatedName
+                }
+                topicAreaScores {
+                    score
+                    topicArea {
+                        name
+                        slug
+                    }
+                }
+            }
+        }
+        educationRecordList {
+            unverifiedOrganizationName
+        }
+        occupationRecordList {
+            unverifiedOrganizationName
+            jobTitle
+        }
+    }
+}
