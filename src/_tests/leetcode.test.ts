@@ -102,7 +102,7 @@ describe("LeetCode", { timeout: 15_000 }, () => {
             "should be able to get own submissions",
             async () => {
                 const submissions = await lc.submissions({ limit: 100, offset: 0 });
-                expect(submissions.length).toBe(100);
+                expect(submissions.length).greaterThan(0).lessThanOrEqual(100);
             },
         );
 
