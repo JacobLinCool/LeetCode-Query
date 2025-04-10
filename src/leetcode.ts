@@ -9,6 +9,7 @@ import PROBLEM from "./graphql/problem.graphql?raw";
 import PROBLEMS from "./graphql/problems.graphql?raw";
 import PROFILE from "./graphql/profile.graphql?raw";
 import RECENT_SUBMISSIONS from "./graphql/recent-submissions.graphql?raw";
+import SUBMISSION_DETAIL from "./graphql/submission-detail.graphql?raw";
 import SUBMISSIONS from "./graphql/submissions.graphql?raw";
 import WHOAMI from "./graphql/whoami.graphql?raw";
 import type {
@@ -194,59 +195,12 @@ export class LeetCode extends EventEmitter {
      */
     public async submission(id: number): Promise<SubmissionDetail> {
         await this.initialized;
+        const { data } = await this.graphql({
+            variables: { id },
+            query: SUBMISSION_DETAIL,
+        });
 
-        try {
-            await this.limiter.lock();
-
-            const res = await fetch(`${BASE_URL}/submissions/detail/${id}/`, {
-                headers: {
-                    origin: BASE_URL,
-                    referer: BASE_URL,
-                    cookie: `csrftoken=${this.credential.csrf || ""}; LEETCODE_SESSION=${
-                        this.credential.session || ""
-                    };`,
-                    "user-agent": USER_AGENT,
-                },
-            });
-            const raw = await res.text();
-            const data = raw.match(/var pageData = ({[^]+?});/)?.[1];
-            const json = new Function("return " + data)();
-            const result = {
-                id: parseInt(json.submissionId),
-                problem_id: parseInt(json.questionId),
-                runtime: parseInt(json.runtime),
-                runtime_distribution: json.runtimeDistributionFormatted
-                    ? (JSON.parse(json.runtimeDistributionFormatted).distribution.map(
-                          (item: [string, number]) => [+item[0], item[1]],
-                      ) as [number, number][])
-                    : [],
-                runtime_percentile: 0,
-                memory: parseInt(json.memory),
-                memory_distribution: json.memoryDistributionFormatted
-                    ? (JSON.parse(json.memoryDistributionFormatted).distribution.map(
-                          (item: [string, number]) => [+item[0], item[1]],
-                      ) as [number, number][])
-                    : [],
-                memory_percentile: 0,
-                code: json.submissionCode,
-                details: json.submissionData,
-            };
-
-            result.runtime_percentile = result.runtime_distribution.reduce(
-                (acc, [usage, p]) => acc + (usage >= result.runtime ? p : 0),
-                0,
-            );
-            result.memory_percentile = result.memory_distribution.reduce(
-                (acc, [usage, p]) => acc + (usage >= result.memory / 1000 ? p : 0),
-                0,
-            );
-
-            this.limiter.unlock();
-            return result;
-        } catch (err) {
-            this.limiter.unlock();
-            throw err;
-        }
+        return data.submissionDetails as SubmissionDetail;
     }
 
     /**
