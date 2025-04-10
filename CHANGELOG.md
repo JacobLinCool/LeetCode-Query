@@ -1,5 +1,11 @@
 # leetcode-query
 
+## 1.3.0
+
+### Minor Changes
+
+- [#101](https://github.com/JacobLinCool/LeetCode-Query/pull/101) [`c9c774a`](https://github.com/JacobLinCool/LeetCode-Query/commit/c9c774a451d4b3d8421918cd74ae6116f28afec7) Thanks [@jinzcdev](https://github.com/jinzcdev)! - Add APIs for leetcode.cn endpoints
+
 ## 1.2.3
 
 ### Patch Changes
