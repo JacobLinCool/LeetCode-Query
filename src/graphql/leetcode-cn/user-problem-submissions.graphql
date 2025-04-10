@@ -1,0 +1,38 @@
+query submissionList(
+    $offset: Int!
+    $limit: Int!
+    $lastKey: String
+    $questionSlug: String!
+    $lang: String
+    $status: SubmissionStatusEnum
+) {
+    submissionList(
+        offset: $offset
+        limit: $limit
+        lastKey: $lastKey
+        questionSlug: $questionSlug
+        lang: $lang
+        status: $status
+    ) {
+        lastKey
+        hasNext
+        submissions {
+            id
+            title
+            status
+            statusDisplay
+            lang
+            langName: langVerboseName
+            runtime
+            timestamp
+            url
+            isPending
+            memory
+            frontendId
+            submissionComment {
+                comment
+                flagType
+            }
+        }
+    }
+}
