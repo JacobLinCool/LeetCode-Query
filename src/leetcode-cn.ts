@@ -307,14 +307,13 @@ export class LeetCodeCN extends EventEmitter {
      * const detail = await leetcode.submissionDetail("123456789");
      * ```
      */
-    public async submissionDetail(submissionId: string): Promise<SubmissionDetailResult> {
+    public async submissionDetail(submissionId: string): Promise<SubmissionDetail> {
         await this.initialized;
         const { data } = await this.graphql({
-            operationName: "submissionDetails",
             variables: { submissionId },
             query: SUBMISSION_DETAIL,
         });
-        return data;
+        return data.submissionDetail as SubmissionDetail;
     }
 
     /**
@@ -711,6 +710,7 @@ export interface OutputDetail {
 }
 
 export interface SubmissionDetail {
+    id: string;
     code: string;
     timestamp: number;
     statusDisplay: string;
@@ -735,8 +735,4 @@ export interface SubmissionDetail {
     testBodies: null | string;
     stdOutput: string;
     outputDetail: OutputDetail;
-}
-
-export interface SubmissionDetailResult {
-    submissionDetail: SubmissionDetail;
 }

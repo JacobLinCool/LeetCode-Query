@@ -1,5 +1,6 @@
 query submissionDetails($submissionId: ID!) {
     submissionDetail(submissionId: $submissionId) {
+        id
         code
         timestamp
         statusDisplay

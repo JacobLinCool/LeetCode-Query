@@ -69,9 +69,10 @@ describe("LeetCodeCN", { timeout: 15_000 }, () => {
         )("should be able to get submission detail", async () => {
             const submissionId = process.env["TEST_CN_SUBMISSION_ID"];
             if (submissionId) {
-                const detail = await lc.submissionDetail(submissionId);
-                expect(detail.submissionDetail).toBeDefined();
-                expect(detail.submissionDetail.code).toBeDefined();
+                const submissionDetail = await lc.submissionDetail(submissionId);
+                expect(submissionDetail).toBeDefined();
+                expect(submissionDetail.id).toBe(submissionId);
+                expect(submissionDetail.code).toBeDefined();
             }
         });
     });
