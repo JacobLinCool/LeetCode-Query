@@ -1,0 +1,55 @@
+query submissionDetails($submissionId: ID!) {
+    submissionDetail(submissionId: $submissionId) {
+        code
+        timestamp
+        statusDisplay
+        isMine
+        runtimeDisplay: runtime
+        memoryDisplay: memory
+        memory: rawMemory
+        lang
+        langVerboseName
+        question {
+            questionId
+            titleSlug
+            hasFrontendPreview
+        }
+        user {
+            realName
+            userAvatar
+            userSlug
+        }
+        runtimePercentile
+        memoryPercentile
+        submissionComment {
+            flagType
+        }
+        passedTestCaseCnt
+        totalTestCaseCnt
+        fullCodeOutput
+        testDescriptions
+        testInfo
+        testBodies
+        stdOutput
+        ... on GeneralSubmissionNode {
+            outputDetail {
+                codeOutput
+                expectedOutput
+                input
+                compileError
+                runtimeError
+                lastTestcase
+            }
+        }
+        ... on ContestSubmissionNode {
+            outputDetail {
+                codeOutput
+                expectedOutput
+                input
+                compileError
+                runtimeError
+                lastTestcase
+            }
+        }
+    }
+}

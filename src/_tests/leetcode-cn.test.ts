@@ -58,6 +58,17 @@ describe("LeetCodeCN", { timeout: 15_000 }, () => {
                 expect(user.isSignedIn).toBe(true);
             },
         );
+
+        it.skipIf(
+            !process.env["TEST_CN_LEETCODE_SESSION"] || !process.env["TEST_CN_SUBMISSION_ID"],
+        )("should be able to get submission detail", async () => {
+            const submissionId = process.env["TEST_CN_SUBMISSION_ID"];
+            if (submissionId) {
+                const detail = await lc.submissionDetail(submissionId);
+                expect(detail.submissionDetail).toBeDefined();
+                expect(detail.submissionDetail.code).toBeDefined();
+            }
+        });
     });
 
     describe("Unauthenticated", () => {

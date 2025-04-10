@@ -7,6 +7,7 @@ import PROBLEM_SET from "./graphql/leetcode-cn/problem-set.graphql?raw";
 import PROBLEM from "./graphql/leetcode-cn/problem.graphql?raw";
 import QUESTION_OF_TODAY from "./graphql/leetcode-cn/question-of-today.graphql?raw";
 import RECENT_AC_SUBMISSIONS from "./graphql/leetcode-cn/recent-ac-submissions.graphql?raw";
+import SUBMISSION_DETAIL from "./graphql/leetcode-cn/submission-detail.graphql?raw";
 import USER_CONTEST from "./graphql/leetcode-cn/user-contest-ranking.graphql?raw";
 import USER_PROBLEM_SUBMISSIONS from "./graphql/leetcode-cn/user-problem-submissions.graphql?raw";
 import USER_PROFILE from "./graphql/leetcode-cn/user-profile.graphql?raw";
@@ -67,7 +68,7 @@ export class LeetCodeCN extends EventEmitter {
      *
      * ```javascript
      * const leetcode = new LeetCodeCN();
-     * const profile = await leetcode.user("jacoblincool");
+     * const profile = await leetcode.user("leetcode");
      * ```
      */
     public async user(username: string): Promise<UserProfile> {
@@ -284,6 +285,26 @@ export class LeetCodeCN extends EventEmitter {
         });
 
         return data.userStatus as UserStatus;
+    }
+
+    /**
+     * Get detailed information about a submission.
+     * @param submissionId The ID of the submission
+     * @returns Detailed information about the submission
+     *
+     * ```javascript
+     * const leetcode = new LeetCodeCN();
+     * const detail = await leetcode.submissionDetail("123456789");
+     * ```
+     */
+    public async submissionDetail(submissionId: string): Promise<SubmissionDetailResult> {
+        await this.initialized;
+        const { data } = await this.graphql({
+            operationName: "submissionDetails",
+            variables: { submissionId },
+            query: SUBMISSION_DETAIL,
+        });
+        return data;
     }
 
     /**
@@ -656,4 +677,56 @@ export interface UserProgressQuestionList {
 export interface UserProgressQuestionListInput {
     skip: number;
     limit: number;
+}
+
+export interface SubmissionQuestion {
+    questionId: string;
+    titleSlug: string;
+    hasFrontendPreview: boolean;
+}
+
+export interface SubmissionUser {
+    realName: string;
+    userAvatar: string;
+    userSlug: string;
+}
+
+export interface OutputDetail {
+    codeOutput: string;
+    expectedOutput: string;
+    input: string;
+    compileError: string;
+    runtimeError: string;
+    lastTestcase: string;
+}
+
+export interface SubmissionDetail {
+    code: string;
+    timestamp: number;
+    statusDisplay: string;
+    isMine: boolean;
+    runtimeDisplay: string;
+    memoryDisplay: string;
+    memory: string;
+    lang: string;
+    langVerboseName: string;
+    question: SubmissionQuestion;
+    user: SubmissionUser;
+    runtimePercentile: number;
+    memoryPercentile: number;
+    submissionComment: null | {
+        flagType: string;
+    };
+    passedTestCaseCnt: number;
+    totalTestCaseCnt: number;
+    fullCodeOutput: null | string;
+    testDescriptions: null | string;
+    testInfo: null | string;
+    testBodies: null | string;
+    stdOutput: string;
+    outputDetail: OutputDetail;
+}
+
+export interface SubmissionDetailResult {
+    submissionDetail: SubmissionDetail;
 }
