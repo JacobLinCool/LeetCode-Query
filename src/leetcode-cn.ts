@@ -94,7 +94,7 @@ export class LeetCodeCN extends EventEmitter {
         await this.initialized;
         const { data } = await this.graphql(
             {
-                operationName: "userContest",
+                operationName: "userContestRankingInfo",
                 variables: { username },
                 query: USER_CONTEST,
             },
