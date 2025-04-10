@@ -138,7 +138,15 @@ export class LeetCodeCN extends EventEmitter {
         limit = 20,
         offset = 0,
         slug,
-    }: { limit?: number; offset?: number; slug?: string } = {}): Promise<Submission[]> {
+        lang,
+        status,
+    }: {
+        limit?: number;
+        offset?: number;
+        slug?: string;
+        lang?: string;
+        status?: string;
+    } = {}): Promise<Submission[]> {
         await this.initialized;
 
         if (!slug) {
@@ -155,6 +163,8 @@ export class LeetCodeCN extends EventEmitter {
                     offset: cursor,
                     limit: limit - submissions.length > 20 ? 20 : limit - submissions.length,
                     questionSlug: slug,
+                    lang,
+                    status,
                 },
                 query: USER_PROBLEM_SUBMISSIONS,
             });

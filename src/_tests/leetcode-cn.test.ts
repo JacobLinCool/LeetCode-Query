@@ -35,8 +35,13 @@ describe("LeetCodeCN", { timeout: 15_000 }, () => {
                     limit: 30,
                     offset: 0,
                     slug: "two-sum",
+                    lang: "cpp",
+                    status: "AC",
                 });
                 expect(Array.isArray(submissions)).toBe(true);
+                if (submissions.length > 0) {
+                    expect(submissions[0].status).toBe("AC");
+                }
             },
         );
 
