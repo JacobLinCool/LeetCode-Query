@@ -66,7 +66,8 @@ describe("Cache", () => {
 
         it("should expire after 300ms", async () => {
             caches.default.set("test", "test", 300);
-            await sleep(300);
+            // wait for 305ms to ensure the cache is expired
+            await sleep(305);
             expect(caches.default.get("test")).toBeNull();
             caches.default.clear();
         });

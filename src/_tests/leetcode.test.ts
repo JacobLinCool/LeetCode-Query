@@ -3,6 +3,7 @@ import { beforeAll, describe, expect, it } from "vitest";
 import { Cache } from "../cache";
 import { Credential } from "../credential";
 import { LeetCode } from "../leetcode";
+import { QuestionStatusEnum } from "../leetcode-cn";
 
 describe("LeetCode", { timeout: 15_000 }, () => {
     describe("General", () => {
@@ -123,6 +124,30 @@ describe("LeetCode", { timeout: 15_000 }, () => {
                 expect(submission.id).toBe(333333333);
                 expect(submission.memory).toBe(34096000);
                 expect(submission.runtime).toBe(200);
+            },
+        );
+
+        it.skipIf(!process.env["TEST_LEETCODE_SESSION"])(
+            "should be able to get user progress questions",
+            async () => {
+                const progress = await lc.user_progress_questions({
+                    skip: 0,
+                    limit: 10,
+                });
+                expect(progress).toBeDefined();
+                expect(progress.questions.length).toBeLessThanOrEqual(10);
+
+                const progressWithQuestionStatus = await lc.user_progress_questions({
+                    skip: 0,
+                    limit: 10,
+                    questionStatus: QuestionStatusEnum.SOLVED,
+                });
+                expect(progressWithQuestionStatus).toBeDefined();
+                if (progressWithQuestionStatus.questions.length > 0) {
+                    expect(progressWithQuestionStatus.questions[0].questionStatus).toBe(
+                        QuestionStatusEnum.SOLVED,
+                    );
+                }
             },
         );
     });

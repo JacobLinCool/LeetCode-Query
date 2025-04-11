@@ -9,6 +9,7 @@ The API to get user profiles, submissions, and problems on LeetCode, with highly
 - [x] Get Public User Profile.
 - [x] Get User's Recent Submissions. (Public, Max: 20)
 - [x] Get User Contest Records. (thanks to [@laporchen](https://github.com/laporchen))
+- [x] Get All of User's Submissions. (Only for `leetcode.cn` endpoint)
 - [x] Get All Problem List, or with filter of difficulty and tags.
 - [x] Get Problem Detail.
 - [x] Get Daily Challenge.
@@ -35,6 +36,14 @@ import { LeetCode } from "leetcode-query";
 
 const leetcode = new LeetCode();
 const user = await leetcode.user("username");
+
+/*
+// An Example for leetcode.cn endpoint
+import { LeetCodeCN } from "leetcode-query";
+
+const leetcodeCN = new LeetCodeCN();
+const user = await leetcodeCN.user("leetcode");
+*/
 ```
 
 ### Get All Of Your Submissions
@@ -46,7 +55,7 @@ const credential = new Credential();
 await credential.init("YOUR-LEETCODE-SESSION-COOKIE");
 
 const leetcode = new LeetCode(credential);
-console.log(await leetcode.submissions(100, 0));
+console.log(await leetcode.submissions({ limit: 10, offset: 0 }));
 ```
 
 ### Use Custom Fetcher
