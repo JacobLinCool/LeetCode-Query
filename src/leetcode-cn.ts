@@ -198,13 +198,12 @@ export class LeetCodeCN extends EventEmitter {
      * Get user progress questions. Need to be authenticated.
      * @returns
      */
-    public async user_progress_questions(filters: {
-        skip: number;
-        limit: number;
-    }): Promise<UserProgressQuestionList> {
+    public async user_progress_questions(
+        filters: UserProgressQuestionListInput,
+    ): Promise<UserProgressQuestionList> {
         await this.initialized;
         const { data } = await this.graphql({
-            variables: { filter: filters },
+            variables: { filters: filters },
             query: USER_PROGRESS_QUESTIONS,
         });
         return data.userProgressQuestionList as UserProgressQuestionList;
@@ -684,8 +683,21 @@ export interface UserProgressQuestionList {
 }
 
 export interface UserProgressQuestionListInput {
+    difficulty?: Array<DifficultyEnum>;
+    questionStatus?: QuestionStatusEnum;
     skip: number;
     limit: number;
+}
+
+export enum DifficultyEnum {
+    EASY = "EASY",
+    MEDIUM = "MEDIUM",
+    HARD = "HARD",
+}
+
+export enum QuestionStatusEnum {
+    ATTEMPTED = "ATTEMPTED",
+    SOLVED = "SOLVED",
 }
 
 export interface SubmissionQuestion {

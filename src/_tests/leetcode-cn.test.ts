@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import { beforeAll, describe, expect, it } from "vitest";
 import { Cache } from "../cache";
 import Credential from "../credential-cn";
-import { LeetCodeCN } from "../leetcode-cn";
+import { LeetCodeCN, QuestionStatusEnum } from "../leetcode-cn";
 
 describe("LeetCodeCN", { timeout: 15_000 }, () => {
     describe("General", () => {
@@ -50,9 +50,22 @@ describe("LeetCodeCN", { timeout: 15_000 }, () => {
             async () => {
                 const progress = await lc.user_progress_questions({
                     skip: 0,
-                    limit: 20,
+                    limit: 10,
                 });
                 expect(progress).toBeDefined();
+                expect(progress.questions.length).toBeLessThanOrEqual(10);
+
+                const progressWithQuestionStatus = await lc.user_progress_questions({
+                    skip: 0,
+                    limit: 10,
+                    questionStatus: QuestionStatusEnum.ATTEMPTED,
+                });
+                expect(progressWithQuestionStatus).toBeDefined();
+                if (progressWithQuestionStatus.questions.length > 0) {
+                    expect(progressWithQuestionStatus.questions[0].questionStatus).toBe(
+                        QuestionStatusEnum.ATTEMPTED,
+                    );
+                }
             },
         );
 
