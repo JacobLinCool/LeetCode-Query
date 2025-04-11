@@ -260,27 +260,48 @@ export interface Whoami {
 
 export interface SubmissionDetail {
     id: number;
-    problem_id: number;
     runtime: number;
-    runtime_distribution: [number, number][];
-    runtime_percentile: number;
+    runtimeDisplay: string;
+    runtimePercentile: number;
+    runtimeDistribution: string;
     memory: number;
-    memory_distribution: [number, number][];
-    memory_percentile: number;
+    memoryDisplay: string;
+    memoryPercentile: number;
+    memoryDistribution: string;
     code: string;
-    details: {
-        status_code: number;
-        runtime: string;
-        memory: string;
-        total_correct: string;
-        total_testcases: string;
-        compare_result: string;
-        input_formatted: string;
-        input: string;
-        expected_output: string;
-        code_output: string;
-        last_testcase: string;
+    timestamp: number;
+    statusCode: number;
+    user: {
+        username: string;
+        profile: {
+            realName: string;
+            userAvatar: string;
+        };
     };
+    lang: {
+        name: string;
+        verboseName: string;
+    };
+    question: {
+        questionId: string;
+        titleSlug: string;
+        hasFrontendPreview: boolean;
+    };
+    notes: string;
+    flagType: string;
+    topicTags: string[];
+    runtimeError: string | null;
+    compileError: string | null;
+    lastTestcase: string;
+    codeOutput: string;
+    expectedOutput: string;
+    totalCorrect: number;
+    totalTestcases: number;
+    fullCodeOutput: string | null;
+    testDescriptions: string | null;
+    testBodies: string | null;
+    testInfo: string | null;
+    stdOutput: string | null;
 }
 
 export interface ProblemList {

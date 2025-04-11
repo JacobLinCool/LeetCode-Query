@@ -2,7 +2,7 @@ query submissionList(
     $offset: Int!
     $limit: Int!
     $lastKey: String
-    $questionSlug: String!
+    $questionSlug: String
     $lang: String
     $status: SubmissionStatusEnum
 ) {
