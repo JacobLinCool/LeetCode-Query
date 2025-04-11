@@ -5,6 +5,7 @@ import { Credential } from "./credential";
 import fetch from "./fetch";
 import CONTEST from "./graphql/contest.graphql?raw";
 import DAILY from "./graphql/daily.graphql?raw";
+import USER_PROGRESS_QUESTIONS from "./graphql/leetcode-cn/user-progress-questions.graphql?raw";
 import PROBLEM from "./graphql/problem.graphql?raw";
 import PROBLEMS from "./graphql/problems.graphql?raw";
 import PROFILE from "./graphql/profile.graphql?raw";
@@ -12,6 +13,7 @@ import RECENT_SUBMISSIONS from "./graphql/recent-submissions.graphql?raw";
 import SUBMISSION_DETAIL from "./graphql/submission-detail.graphql?raw";
 import SUBMISSIONS from "./graphql/submissions.graphql?raw";
 import WHOAMI from "./graphql/whoami.graphql?raw";
+import { UserProgressQuestionList, UserProgressQuestionListInput } from "./leetcode-cn";
 import type {
     DailyChallenge,
     Problem,
@@ -201,6 +203,21 @@ export class LeetCode extends EventEmitter {
         });
 
         return data.submissionDetails as SubmissionDetail;
+    }
+
+    /**
+     * Get user progress questions. Need to be authenticated.
+     * @returns
+     */
+    public async user_progress_questions(
+        filters: UserProgressQuestionListInput,
+    ): Promise<UserProgressQuestionList> {
+        await this.initialized;
+        const { data } = await this.graphql({
+            variables: { filters: filters },
+            query: USER_PROGRESS_QUESTIONS,
+        });
+        return data.userProgressQuestionList as UserProgressQuestionList;
     }
 
     /**
