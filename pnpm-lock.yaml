@@ -53,11 +53,11 @@ devDependencies:
     specifier: ^15.2.2
     version: 15.2.2
   prettier:
-    specifier: 3.2.5
-    version: 3.2.5
+    specifier: 3.5.3
+    version: 3.5.3
   prettier-plugin-organize-imports:
     specifier: ^3.2.4
-    version: 3.2.4(prettier@3.2.5)(typescript@5.3.3)
+    version: 3.2.4(prettier@3.5.3)(typescript@5.3.3)
   rollup-plugin-string:
     specifier: ^3.0.0
     version: 3.0.0
@@ -3134,7 +3134,7 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: true
 
-  /prettier-plugin-organize-imports@3.2.4(prettier@3.2.5)(typescript@5.3.3):
+  /prettier-plugin-organize-imports@3.2.4(prettier@3.5.3)(typescript@5.3.3):
     resolution: {integrity: sha512-6m8WBhIp0dfwu0SkgfOxJqh+HpdyfqSSLfKKRZSFbDuEQXDDndb8fTpRWkUrX/uBenkex3MgnVk0J3b3Y5byog==}
     peerDependencies:
       '@volar/vue-language-plugin-pug': ^1.0.4
@@ -3147,7 +3147,7 @@ packages:
       '@volar/vue-typescript':
         optional: true
     dependencies:
-      prettier: 3.2.5
+      prettier: 3.5.3
       typescript: 5.3.3
     dev: true
 
@@ -3157,8 +3157,8 @@ packages:
     hasBin: true
     dev: true
 
-  /prettier@3.2.5:
-    resolution: {integrity: sha512-3/GWa9aOC0YeD7LUfvOG2NiDyhOWRvt1k+rcKhOuYnMY24iiCphgneUfJDyFXd6rZCAnuLBv6UeAULtrhT/F4A==}
+  /prettier@3.5.3:
+    resolution: {integrity: sha512-QQtaxnoDJeAkDvDKWCLiwIXkTgRhwYDEQCghU9Z6q03iyek/rxRh/2lC3HB7P8sWT2xC/y5JDctPLBIGzHKbhw==}
     engines: {node: '>=14'}
     hasBin: true
     dev: true
