@@ -333,6 +333,8 @@ export class LeetCodeCN extends EventEmitter {
             const res = await fetch(`${BASE}${endpoint}`, {
                 method: "POST",
                 headers: {
+                    accept: "application/json",
+                    "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
                     "content-type": "application/json",
                     origin: BASE,
                     referer: BASE,
