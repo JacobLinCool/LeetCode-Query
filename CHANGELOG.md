@@ -1,5 +1,11 @@
 # leetcode-query
 
+## 2.0.1
+
+### Patch Changes
+
+- [#108](https://github.com/JacobLinCool/LeetCode-Query/pull/108) [`f967d70`](https://github.com/JacobLinCool/LeetCode-Query/commit/f967d70d183129f74c33ca6204c2871b903b1de8) Thanks [@AntaresQAQ](https://github.com/AntaresQAQ)! - Fix HTTP 403 error when accessing leetcode.cn
+
 ## 2.0.0
 
 ### Major Changes
